@@ -11,11 +11,12 @@ import lombok.Getter;
 @Getter
 public enum ResultCode {
     SUCCESS(20000, "操作成功！"),
-    ERROR(40000, "服务器出了点问题！"),
+    ERROR(40000, "服务器异常！"),
     DATA_NOT_FOUND(40001, "未查到相关数据！"),
     PARAMS_NULL(40002, "参数不能为空！"),
     PARAMS_ERROR(40005, "参数不合法！"),
-    NOT_LOGIN(40003, "未登录或登录过期！")
+    NOT_LOGIN(40003, "未登录或登录过期！"),
+    LOGIN_PARAMS_ERROR(40004, "用户名或密码错误！")
     ;
 
     /**
