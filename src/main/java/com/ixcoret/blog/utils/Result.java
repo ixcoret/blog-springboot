@@ -1,15 +1,18 @@
 package com.ixcoret.blog.utils;
 
-import com.ixcoret.blog.enums.ResultCode;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.ixcoret.blog.enums.ResultEnum;
 import lombok.Data;
 
 import java.io.Serializable;
 
 /**
  * @author ixcoret
- * @date 2021/5/29 14:54
+ * @createTime 2021/5/29 14:54
  */
 @Data
+// 只序列化非null的属性
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class Result<T> implements Serializable {
     private Integer code;
 
@@ -35,7 +38,11 @@ public class Result<T> implements Serializable {
      * 成功返回结果
      */
     public static <T> Result<T> success() {
-        return new Result<>(ResultCode.SUCCESS.getCode(), ResultCode.SUCCESS.getMessage());
+        return new Result<>(ResultEnum.SUCCESS.getCode(), ResultEnum.SUCCESS.getMessage());
+    }
+
+    public static <T> Result<T> success(String message) {
+        return new Result<>(ResultEnum.SUCCESS.getCode(), message);
     }
 
     /**
@@ -44,7 +51,7 @@ public class Result<T> implements Serializable {
      * @param data 返回的数据
      */
     public static <T> Result<T> success(T data) {
-        return new Result<>(ResultCode.SUCCESS.getCode(), ResultCode.SUCCESS.getMessage(), data);
+        return new Result<>(ResultEnum.SUCCESS.getCode(), ResultEnum.SUCCESS.getMessage(), data);
     }
 
     /**
@@ -64,7 +71,7 @@ public class Result<T> implements Serializable {
      * @param message 提示信息
      */
     public static <T> Result<T> success(String message, T data) {
-        return new Result<>(ResultCode.SUCCESS.getCode(), message, data);
+        return new Result<>(ResultEnum.SUCCESS.getCode(), message, data);
     }
 
     /**
@@ -82,15 +89,15 @@ public class Result<T> implements Serializable {
      * 失败返回结果
      */
     public static <T> Result<T> error() {
-        return new Result<>(ResultCode.ERROR.getCode(), ResultCode.ERROR.getMessage());
+        return new Result<>(ResultEnum.ERROR.getCode(), ResultEnum.ERROR.getMessage());
     }
 
     /**
      *
-     * @param resultCode 返回码枚举
+     * @param resultEnum 返回码枚举
      */
-    public static <T> Result<T> error(ResultCode resultCode) {
-        return new Result<>(resultCode.getCode(), resultCode.getMessage());
+    public static <T> Result<T> error(ResultEnum resultEnum) {
+        return new Result<>(resultEnum.getCode(), resultEnum.getMessage());
     }
 
     public static <T> Result<T> error(Integer code, String message) {

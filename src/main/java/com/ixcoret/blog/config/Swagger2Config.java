@@ -16,7 +16,7 @@ import java.util.List;
 
 /**
  * @author ixcoret
- * @date 2021/5/31 15:07
+ * @createTime 2021/5/31 15:07
  */
 @Configuration
 @EnableSwagger2
@@ -46,7 +46,7 @@ public class Swagger2Config {
     private List<ApiKey> securitySchemes() {
         List<ApiKey> apiKeys = new ArrayList<>();
         //设置请求头信息
-        apiKeys.add(new ApiKey("Authorization", "accessToken", "header"));
+        apiKeys.add(new ApiKey("Authorization", "Authorization", "header"));
         return apiKeys;
     }
 

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ixcoret.blog.mapper.ArticleMapper">
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.ixcoret.blog.pojo.entity.Article">
+        <id column="id" property="id"/>
+        <result column="title" property="title"/>
+        <result column="category_id" property="categoryId"/>
+    </resultMap>
+
+    <insert id="save" keyColumn="id" keyProperty="id" useGeneratedKeys="true">
+        insert into t_article(title, category_id, content)
+        values (#{title}, #{categoryForm.id}, #{content})
+    </insert>
+
+    <select id="list" resultMap="BaseResultMap">
+        select id, title
+        from t_article
+    </select>
+
+
+</mapper>

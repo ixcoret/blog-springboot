@@ -24,12 +24,12 @@
     <!-- info文件输出 -->
     <appender name="info" class="ch.qos.logback.core.rolling.RollingFileAppender">
         <File>${log.base}/${log.moduleName}-info.log
-        </File><!-- 设置日志不超过${log.max.size}时的保存路径，注意如果 是web项目会保存到Tomcat的bin目录 下 -->
-        <!-- 滚动记录文件，先将日志记录到指定文件，当符合某个条件时，将日志记录到其他文件。-->
+        </File><!-- 设置日志不超过${log.max.size}时的保存路径，注意如果是web项目会保存到Tomcat的bin目录下 -->
+        <!-- 滚动记录文件，先将日志记录到指定文件，当符合某个条件时，将日志记录到其他文件-->
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
             <FileNamePattern>${log.base}/archive/${log.moduleName}-info-%d{yyyy-MM-dd}.%i.zip
             </FileNamePattern>
-            <!-- 当天的日志大小 超过${log.max.size}时,压缩日志并保存 -->
+            <!-- 当天的日志大小 超过${log.max.size}时，压缩日志并保存 -->
             <timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
                 <maxFileSize>${log.max.size}</maxFileSize>
             </timeBasedFileNamingAndTriggeringPolicy>
@@ -48,8 +48,8 @@
     <!-- debug文件输出 -->
     <appender name="debug" class="ch.qos.logback.core.rolling.RollingFileAppender">
         <File>${log.base}/${log.moduleName}-debug.log
-        </File><!-- 设置日志不超过${log.max.size}时的保存路径，注意如果 是web项目会保存到Tomcat的bin目录 下 -->
-        <!-- 滚动记录文件，先将日志记录到指定文件，当符合某个条件时，将日志记录到其他文件。-->
+        </File><!-- 设置日志不超过${log.max.size}时的保存路径，注意如果是web项目会保存到Tomcat的bin目录下 -->
+        <!-- 滚动记录文件，先将日志记录到指定文件，当符合某个条件时，将日志记录到其他文件 -->
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
             <FileNamePattern>${log.base}/archive/${log.moduleName}-debug-%d{yyyy-MM-dd}.%i.zip
             </FileNamePattern>
@@ -72,12 +72,12 @@
     <!-- warning文件输出 -->
     <appender name="warn" class="ch.qos.logback.core.rolling.RollingFileAppender">
         <File>${log.base}/${log.moduleName}-warn.log
-        </File><!-- 设置日志不超过${log.max.size}时的保存路径，注意如果 是web项目会保存到Tomcat的bin目录 下 -->
-        <!-- 滚动记录文件，先将日志记录到指定文件，当符合某个条件时，将日志记录到其他文件。-->
+        </File><!-- 设置日志不超过${log.max.size}时的保存路径，注意如果是web项目会保存到Tomcat的bin目录下 -->
+        <!-- 滚动记录文件，先将日志记录到指定文件，当符合某个条件时，将日志记录到其他文件 -->
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
             <FileNamePattern>${log.base}/archive/${log.moduleName}-warn-%d{yyyy-MM-dd}.%i.zip
             </FileNamePattern>
-            <!-- 当天的日志大小 超过${log.max.size}时,压缩日志并保存 -->
+            <!-- 当天的日志大小 超过${log.max.size}时，压缩日志并保存 -->
             <timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
                 <maxFileSize>${log.max.size}</maxFileSize>
             </timeBasedFileNamingAndTriggeringPolicy>
@@ -96,7 +96,7 @@
     <!-- error文件输出 -->
     <appender name="error" class="ch.qos.logback.core.rolling.RollingFileAppender">
         <File>${log.base}/${log.moduleName}-error.log
-        </File><!-- 设置日志不超过${log.max.size}时的保存路径，注意如果 是web项目会保存到Tomcat的bin目录 下 -->
+        </File><!-- 设置日志不超过${log.max.size}时的保存路径，注意如果是web项目会保存到Tomcat的bin目录下 -->
         <!-- 滚动记录文件，先将日志记录到指定文件，当符合某个条件时，将日志记录到其他文件。-->
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
             <FileNamePattern>${log.base}/archive/${log.moduleName}-error-%d{yyyy-MM-dd}.%i.zip
@@ -120,7 +120,7 @@
     <!-- error文件输出 -->
     <appender name="all" class="ch.qos.logback.core.rolling.RollingFileAppender">
         <File>${log.base}/${log.moduleName}-all.log
-        </File><!-- 设置日志不超过${log.max.size}时的保存路径，注意如果 是web项目会保存到Tomcat的bin目录 下 -->
+        </File><!-- 设置日志不超过${log.max.size}时的保存路径，注意如果是web项目会保存到Tomcat的bin目录下 -->
         <!-- 滚动记录文件，先将日志记录到指定文件，当符合某个条件时，将日志记录到其他文件。-->
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
             <FileNamePattern>${log.base}/archive/${log.moduleName}-all-%d{yyyy-MM-dd}.%i.zip
@@ -136,8 +136,8 @@
         </layout>
     </appender>
 
-    <!-- 为某个包下的所有类的指定Appender 这里也可以指定类名称例如：com.aa.bb.ClassName -->
-    <logger name="com.jg.blog" additivity="false">
+    <!-- 为某个包下的所有类的指定Appender，这里也可以指定类名称例如：com.aa.bb.ClassName -->
+    <logger name="com.ixcoret.blog" additivity="false">
         <level value="debug"/>
         <appender-ref ref="stdout"/>
         <appender-ref ref="info"/>

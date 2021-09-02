@@ -11,14 +11,14 @@ import java.util.Map;
  * 分页工具类
  *
  * @author ixcoret
- * @date 2021/5/29 13:13
+ * @createTime 2021/5/29 13:13
  */
 @Data
 public class Page<T> implements Serializable {
     /**
      * 当前页
      */
-    private Integer pageNumber;
+    private Integer pageNum;
 
     /**
      * 每页记录数
@@ -60,11 +60,11 @@ public class Page<T> implements Serializable {
      */
     private boolean asc = true;
 
-    public Integer getPageNumber() {
-        if (this.pageNumber == null) {
+    public Integer getPageNum() {
+        if (this.pageNum == null) {
             return 1;
         }
-        return this.pageNumber;
+        return this.pageNum;
     }
 
     public Integer getPageSize() {
@@ -75,7 +75,7 @@ public class Page<T> implements Serializable {
     }
 
     public int getIndex() {
-        return (pageNumber - 1) * pageSize;
+        return (pageNum - 1) * pageSize;
     }
 
     public void setPageSize(Integer total) {
