@@ -22,11 +22,6 @@ public class Category {
     private String name;
 
     /**
-     * 是否启用
-     */
-    private Boolean enabled;
-
-    /**
      * 创建时间
      */
     private LocalDateTime createTime;

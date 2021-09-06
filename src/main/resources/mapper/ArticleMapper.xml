@@ -1,11 +1,18 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.ixcoret.blog.mapper.ArticleMapper">
-    <!-- 通用查询映射结果 -->
-    <resultMap id="BaseResultMap" type="com.ixcoret.blog.pojo.entity.Article">
+
+    <resultMap id="backArticleResultMap" type="com.ixcoret.blog.pojo.vo.ArticleBackVO">
         <id column="id" property="id"/>
         <result column="title" property="title"/>
-        <result column="category_id" property="categoryId"/>
+        <result column="name" property="categoryName"/>
+        <result column="views" property="views"/>
+        <result column="create_time" property="createTime"/>
+        <result column="update_time" property="updateTime"/>
+        <collection property="tagList" ofType="com.ixcoret.blog.pojo.vo.TagVO">
+            <id column="tag_id" property="id"/>
+            <result column="tag_name" property="name"/>
+        </collection>
     </resultMap>
 
     <insert id="save" keyColumn="id" keyProperty="id" useGeneratedKeys="true">
@@ -13,10 +20,17 @@
         values (#{title}, #{categoryForm.id}, #{content})
     </insert>
 
-    <select id="list" resultMap="BaseResultMap">
-        select id, title
+    <select id="countArticles" resultType="java.lang.Integer">
+        select count(id)
         from t_article
     </select>
 
-
+    <select id="listBackArticles" resultMap="backArticleResultMap">
+        select a.id, a.title, c.name, t.id as tag_id, t.name as tag_name, a.views, a.create_time, a.update_time
+        from (select id, title, category_id, views, create_time, update_time
+              from t_article limit #{index}, #{pageSize}) a
+                 join t_category c on a.category_id = c.id
+                 join t_article_tag a_t on a.id = a_t.article_id
+                 join t_tag t on a_t.tag_id = t.id
+    </select>
 </mapper>

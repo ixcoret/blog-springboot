@@ -14,8 +14,6 @@ public interface CategoryMapper {
 
     void save(Category category);
 
-    Category getById(Integer id);
-
     void update(CategoryForm categoryForm);
 
     void deleteById(Integer id);

@@ -1,9 +1,11 @@
 package com.ixcoret.blog.pojo.vo;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.util.List;
 
 /**
  * @author ixcoret
@@ -27,7 +29,7 @@ public class ArticleBackVO implements Serializable {
     /**
      * 文章正文
      */
-    private String content;
+    private List<TagVO> tagList;
 
     /**
      * 文章浏览量
@@ -37,11 +39,13 @@ public class ArticleBackVO implements Serializable {
     /**
      * 文章发布时间
      */
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime createTime;
 
     /**
      * 文章更新时间
      */
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime updateTime;
 
 }

@@ -13,20 +13,13 @@ import java.util.List;
 public interface CategoryService {
     /**
      * 新增分类
-     * @param categoryForm
+     * @param category
      */
     void save(Category category);
 
     /**
-     * 根据id查询
-     * @param id
-     * @return
-     */
-    Category getById(Integer id);
-
-    /**
      * 修改分类
-     * @param category
+     * @param categoryForm
      */
     void update(CategoryForm categoryForm);
 

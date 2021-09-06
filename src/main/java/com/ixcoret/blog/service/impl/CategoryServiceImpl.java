@@ -27,20 +27,10 @@ public class CategoryServiceImpl implements CategoryService {
         categoryMapper.save(category);
     }
 
-    /**
-     * 根据id查询
-     * @param id
-     * @return
-     */
-    @Override
-    public Category getById(Integer id) {
-
-        return categoryMapper.getById(id);
-    }
 
     /**
      * 修改分类
-     * @param category
+     * @param categoryForm
      */
     @Override
     public void update(CategoryForm categoryForm) {

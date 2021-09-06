@@ -37,13 +37,6 @@ public class CategoryController {
         return Result.success();
     }
 
-    @GetMapping("/admin/categories/{id}")
-    @ApiOperation("根据id查询")
-    public Result<Category> getById(@PathVariable Integer id) {
-        Category category = categoryService.getById(id);
-        return Result.success(category);
-    }
-
     @PutMapping("/admin/categories")
     @ApiOperation("修改分类")
     public Result update(@RequestBody CategoryForm categoryForm) {

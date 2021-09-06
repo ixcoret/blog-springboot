@@ -14,7 +14,7 @@
     <groupId>com.ixcoret</groupId>
     <artifactId>blog</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>blog</name>
+    <name>blog-springboot</name>
     <description>闲言博客</description>
 
     <properties>

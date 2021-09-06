@@ -66,14 +66,14 @@ public class GlobalExceptionHandler {
     }
 
     /**
-     * 处理参数解析失败
+     * 处理json参数解析失败
      * @param e
      * @return
      */
     @ExceptionHandler(HttpMessageNotReadableException.class)
     public Result handleHttpMessageNotReadableException(HttpMessageNotReadableException e) {
         log.info("异常信息：{}", e.getMessage());
-        return Result.error(ResultEnum.PARAMS_ERROR.getCode(), e.getMessage());
+        return Result.error(ResultEnum.JSON_FORMAT_ERROR);
     }
 
     /**
@@ -106,7 +106,7 @@ public class GlobalExceptionHandler {
     HttpMediaTypeNotAcceptableException     406 (Not Acceptable)
     HttpRequestMethodNotSupportedException  405 (Method Not Allowed)
     NoSuchRequestHandlingMethodException    404 (Not Found)
-    TypeMismatchException                   400 (Bad Request)
+    TypeMismatchException                   400 (Bad Request) : 尝试设置 bean 属性时因类型不匹配引发的异常
     HttpMessageNotReadableException         400 (Bad Request)
     MissingServletRequestParameterException 400 (Bad Request)*/
 
@@ -116,7 +116,7 @@ public class GlobalExceptionHandler {
     // MethodArgumentTypeMismatchException：参数类型不匹配
     // MissingServletRequestParameterException：缺少请求参数
     // HttpRequestMethodNotSupportedException：请求方式不支持。例如：A 接口的请求方式为 GET，结果以POST方式请求，导致不匹配
-    // HttpMessageNotReadableException：参数解析失败
+    // HttpMessageNotReadableException：json参数解析失败
     // HttpMediaTypeNotSupportedException：POST、PUT请求的content-type不正确
     // MaxUploadSizeExceededException：文件上传大小超限
     // NoHandlerFoundException：找不到处理器

@@ -14,11 +14,12 @@ public enum ResultEnum {
 
     ERROR(40000, "服务器异常！"),
     DATA_NOT_FOUND(40001, "未查到相关数据！"),
-    PARAMS_ERROR(40002, "缺少请求参数或请求参数不正确！"),
+    PARAMS_ERROR(40002, "参数不正确！"),
     NOT_LOGIN(40003, "未登录或登录过期！"),
     LOGIN_PARAMS_ERROR(40004, "用户名或密码错误！"),
     DATA_EXIST(40005, "数据库中已存在相关数据！"),
     Request_Method_Not_Supported(40006, "请求方式不正确！"),
+    JSON_FORMAT_ERROR(40007, "json格式请求参数缺失或json格式不正确！")
     ;
 
     /**

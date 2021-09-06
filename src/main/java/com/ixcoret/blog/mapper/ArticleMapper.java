@@ -1,6 +1,6 @@
 package com.ixcoret.blog.mapper;
 
-import com.ixcoret.blog.pojo.entity.Article;
+import com.ixcoret.blog.pojo.vo.ArticleBackVO;
 import com.ixcoret.blog.pojo.vo.form.ArticleForm;
 
 import java.util.List;
@@ -12,5 +12,7 @@ import java.util.List;
 public interface ArticleMapper {
     void save(ArticleForm articleForm);
 
-    List<Article> list();
+    List<ArticleBackVO> listBackArticles(Integer index, Integer pageSize );
+
+    Integer countArticles();
 }

@@ -2,18 +2,6 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.ixcoret.blog.mapper.CategoryMapper">
 
-    <!-- 通用查询映射结果 -->
-    <resultMap id="BaseResultMap" type="com.ixcoret.blog.pojo.entity.Category">
-        <id column="id" property="id"/>
-        <result column="name" property="name"/>
-        <result column="enabled" property="enabled"/>
-    </resultMap>
-
-    <resultMap id="categoryBackVO" type="com.ixcoret.blog.pojo.vo.CategoryBackVO" autoMapping="true">
-        <result column="article_count" property="articleCount"/>
-        <result column="create_time" property="createTime"/>
-    </resultMap>
-
     <insert id="save" useGeneratedKeys="true" keyProperty="id" keyColumn="id">
         insert into t_category (name, create_time)
         values (#{name}, #{createTime})
@@ -24,9 +12,6 @@
         <set>
             <if test="name != null and name != ''">
                 name = #{name},
-            </if>
-            <if test="enabled != null">
-                enabled = #{enabled},
             </if>
         </set>
         where id = #{id}
@@ -48,14 +33,8 @@
         )
     </delete>
 
-    <select id="getById" resultMap="BaseResultMap">
-        select id, name, enabled
-        from t_category
-        where id = #{id}
-    </select>
-
-    <select id="listBackCategories" resultMap="categoryBackVO">
-        select c.id, c.name, count(a.id) as article_count, c.enabled, c.create_time
+    <select id="listBackCategories" resultType="com.ixcoret.blog.pojo.vo.CategoryBackVO">
+        select c.id, c.name, count(a.id) as articleCount, c.create_time as createTime
         from t_category c
                  left join t_article a on c.id = a.category_id
         group by c.id

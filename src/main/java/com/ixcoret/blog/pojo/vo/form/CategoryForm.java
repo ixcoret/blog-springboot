@@ -18,8 +18,4 @@ public class CategoryForm {
     @NotBlank(message = "分类名称不能为空！")
     private String name;
 
-    /**
-     * 是否启用
-     */
-    private Boolean enabled;
 }

@@ -3,9 +3,12 @@ package com.ixcoret.blog.service.impl;
 import com.ixcoret.blog.mapper.*;
 import com.ixcoret.blog.pojo.entity.Category;
 import com.ixcoret.blog.pojo.entity.Tag;
+import com.ixcoret.blog.pojo.vo.ArticleBackVO;
 import com.ixcoret.blog.pojo.vo.form.ArticleForm;
 import com.ixcoret.blog.pojo.vo.form.CategoryForm;
+import com.ixcoret.blog.pojo.vo.form.Condition;
 import com.ixcoret.blog.service.ArticleService;
+import com.ixcoret.blog.utils.Page;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -67,5 +70,25 @@ public class ArticleServiceImpl implements ArticleService {
         }
         // 文章、标签的关联关系存库
         articleTagMapper.saveBatch(articleId, tags);
+    }
+
+    /**
+     * 获取后台分类列表：分页查询
+     * @return
+     */
+    @Override
+    public Page<ArticleBackVO> listBackArticles(Condition condition) {
+        Integer total = articleMapper.countArticles();
+        if (total == 0) {
+            return new Page<>();
+        }
+        Page<ArticleBackVO> page = new Page<>();
+        page.setPageSize(condition.getPageSize());
+        page.setPageNum(condition.getPageNum());
+        page.setPageCount(total);
+        Integer index = page.startIndex();
+        List<ArticleBackVO> articles = articleMapper.listBackArticles(index, condition.getPageSize());
+        page.setResultList(articles);
+        return page;
     }
 }

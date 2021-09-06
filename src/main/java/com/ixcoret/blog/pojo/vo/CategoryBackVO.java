@@ -28,11 +28,6 @@ public class CategoryBackVO implements Serializable {
     private Integer articleCount;
 
     /**
-     * 是否启用
-     */
-    private Boolean enabled;
-
-    /**
      * 创建时间
      */
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
