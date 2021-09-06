@@ -6,7 +6,7 @@ server:
 
 spring:
   application:
-    name: blog
+    name: blog-springboot
   # 配置运行环境：dev|test|prod 等等，开发阶段使用dev环境，上线时通过启动参数切换到prod环境
   profiles:
     active: dev
