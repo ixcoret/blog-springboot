@@ -1,6 +1,10 @@
 package com.ixcoret.blog.service;
 
-import com.ixcoret.blog.pojo.entity.Tag;
+import com.ixcoret.blog.api.Page;
+import com.ixcoret.blog.dto.Condition;
+import com.ixcoret.blog.dto.TagDTO;
+import com.ixcoret.blog.vo.TagBackVO;
+import com.ixcoret.blog.vo.TagOptionVO;
 
 import java.util.List;
 
@@ -9,5 +13,15 @@ import java.util.List;
  * @createTime 2021/7/5 0:11
  */
 public interface TagService {
-    List<Tag> list();
+    List<TagOptionVO> listTagOptions();
+
+    Page<TagBackVO> listBackTags(Condition condition);
+
+    void deleteById(Integer id);
+
+    void deleteBatch(List<Integer> ids);
+
+    void update(TagDTO tagDTO);
+
+    void save(TagDTO tagDTO);
 }

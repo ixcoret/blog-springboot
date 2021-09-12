@@ -1,8 +1,8 @@
 package com.ixcoret.blog.shiro;
 
-import com.ixcoret.blog.enums.ResultEnum;
+import com.ixcoret.blog.enums.ResultCodeEnum;
 import com.ixcoret.blog.exception.BusinessException;
-import com.ixcoret.blog.pojo.entity.SysUser;
+import com.ixcoret.blog.entity.SysUser;
 import com.ixcoret.blog.service.SysUserService;
 import org.apache.shiro.authc.*;
 import org.apache.shiro.authz.AuthorizationInfo;
@@ -43,7 +43,7 @@ public class ShiroRealm extends AuthorizingRealm {
         String username = usernamePasswordToken.getUsername();
         SysUser sysUser = sysUserService.getByUsername(username);
         if (sysUser == null) {
-            throw new BusinessException(ResultEnum.LOGIN_PARAMS_ERROR.getCode(), ResultEnum.LOGIN_PARAMS_ERROR.getMessage());
+            throw new BusinessException(ResultCodeEnum.LOGIN_PARAMS_ERROR.getCode(), ResultCodeEnum.LOGIN_PARAMS_ERROR.getMessage());
         }
 
         return new SimpleAuthenticationInfo(sysUser, sysUser.getPassword(), this.getName());

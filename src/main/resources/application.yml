@@ -10,11 +10,6 @@ spring:
   # 配置运行环境：dev|test|prod 等等，开发阶段使用dev环境，上线时通过启动参数切换到prod环境
   profiles:
     active: dev
-  servlet:
-    # 文件上传大小
-    multipart:
-      max-file-size: 50MB
-      max-request-size: 100MB
 
 # Mybatis配置
 mybatis:

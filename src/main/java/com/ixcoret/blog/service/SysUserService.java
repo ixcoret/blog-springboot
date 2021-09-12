@@ -1,6 +1,6 @@
 package com.ixcoret.blog.service;
 
-import com.ixcoret.blog.pojo.entity.SysUser;
+import com.ixcoret.blog.entity.SysUser;
 
 /**
  * @author ixcoret

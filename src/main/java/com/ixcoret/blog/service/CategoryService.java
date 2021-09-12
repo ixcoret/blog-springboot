@@ -1,8 +1,10 @@
 package com.ixcoret.blog.service;
 
-import com.ixcoret.blog.pojo.entity.Category;
-import com.ixcoret.blog.pojo.vo.CategoryBackVO;
-import com.ixcoret.blog.pojo.vo.form.CategoryForm;
+import com.ixcoret.blog.api.Page;
+import com.ixcoret.blog.dto.CategoryDTO;
+import com.ixcoret.blog.dto.Condition;
+import com.ixcoret.blog.vo.CategoryBackVO;
+import com.ixcoret.blog.vo.CategoryOptionVO;
 
 import java.util.List;
 
@@ -13,15 +15,15 @@ import java.util.List;
 public interface CategoryService {
     /**
      * 新增分类
-     * @param category
+     * @param categoryDTO
      */
-    void save(Category category);
+    void save(CategoryDTO categoryDTO);
 
     /**
      * 修改分类
-     * @param categoryForm
+     * @param categoryDTO
      */
-    void update(CategoryForm categoryForm);
+    void update(CategoryDTO categoryDTO);
 
     /**
      * 根据id删除
@@ -33,11 +35,14 @@ public interface CategoryService {
      * 列表查询
      * @return
      */
-    List<CategoryBackVO> listBackCategories();
+    Page<CategoryBackVO> listBackCategories(Condition condition);
 
     /**
      * 根据id批量删除
      * @param ids
      */
     void deleteBatch(List<Integer> ids);
+
+    List<CategoryOptionVO> listCategoryOptions();
+
 }

@@ -1,14 +1,15 @@
 package com.ixcoret.blog.service.impl;
 
 import com.ixcoret.blog.mapper.*;
-import com.ixcoret.blog.pojo.entity.Category;
-import com.ixcoret.blog.pojo.entity.Tag;
-import com.ixcoret.blog.pojo.vo.ArticleBackVO;
-import com.ixcoret.blog.pojo.vo.form.ArticleForm;
-import com.ixcoret.blog.pojo.vo.form.CategoryForm;
-import com.ixcoret.blog.pojo.vo.form.Condition;
+import com.ixcoret.blog.entity.Category;
+import com.ixcoret.blog.entity.Tag;
+import com.ixcoret.blog.util.PageUtil;
+import com.ixcoret.blog.vo.ArticleBackVO;
+import com.ixcoret.blog.dto.ArticleDTO;
+import com.ixcoret.blog.dto.CategoryDTO;
+import com.ixcoret.blog.dto.Condition;
 import com.ixcoret.blog.service.ArticleService;
-import com.ixcoret.blog.utils.Page;
+import com.ixcoret.blog.api.Page;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,24 +42,24 @@ public class ArticleServiceImpl implements ArticleService {
 
     @Override
     @Transactional
-    public void save(ArticleForm articleForm) {
-        CategoryForm categoryForm = articleForm.getCategoryForm();
+    public void save(ArticleDTO articleDTO) {
+        CategoryDTO categoryDTO = articleDTO.getCategoryDTO();
         // 新增分类
-        if (categoryForm.getId() == null && categoryForm.getName().trim().length() > 0) {
+        if (categoryDTO.getId() == null && categoryDTO.getName().trim().length() > 0) {
             Category category = new Category();
-            BeanUtils.copyProperties(categoryForm, category);
+            BeanUtils.copyProperties(categoryDTO, category);
             category.setCreateTime(LocalDateTime.now());
             categoryMapper.save(category);
-            categoryForm.setId(category.getId());
+            categoryDTO.setId(category.getId());
         }
 
-        articleMapper.save(articleForm);
+        articleMapper.save(articleDTO);
 
-        List<Tag> tags = articleForm.getTags();
+        List<Tag> tags = articleDTO.getTags();
         // 存标签：(文章id, 标签id)
         if (tags != null && tags.size() != 0) {
             tags = tags.stream().filter(e -> e.getName().trim().length() > 0).collect(Collectors.toList());
-            saveTags(articleForm.getId(), tags);
+            saveTags(articleDTO.getId(), tags);
         }
     }
 
@@ -83,12 +84,10 @@ public class ArticleServiceImpl implements ArticleService {
             return new Page<>();
         }
         Page<ArticleBackVO> page = new Page<>();
-        page.setPageSize(condition.getPageSize());
-        page.setPageNum(condition.getPageNum());
-        page.setPageCount(total);
-        Integer index = page.startIndex();
-        List<ArticleBackVO> articles = articleMapper.listBackArticles(index, condition.getPageSize());
-        page.setResultList(articles);
+        page.setTotal(total);
+        int index = PageUtil.startIndex(condition.getPageNum(), condition.getPageSize());
+        List<ArticleBackVO> list = articleMapper.listBackArticles(index, condition.getPageSize());
+        page.setList(list);
         return page;
     }
 }

@@ -1,7 +1,7 @@
 package com.ixcoret.blog.service.impl;
 
 import com.ixcoret.blog.mapper.SysUserMapper;
-import com.ixcoret.blog.pojo.entity.SysUser;
+import com.ixcoret.blog.entity.SysUser;
 import com.ixcoret.blog.service.SysUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

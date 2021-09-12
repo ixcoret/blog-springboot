@@ -1,6 +1,6 @@
 package com.ixcoret.blog.mapper;
 
-import com.ixcoret.blog.pojo.entity.Tag;
+import com.ixcoret.blog.entity.Tag;
 
 import java.util.List;
 

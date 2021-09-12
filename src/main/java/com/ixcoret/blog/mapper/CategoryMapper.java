@@ -1,8 +1,8 @@
 package com.ixcoret.blog.mapper;
 
-import com.ixcoret.blog.pojo.entity.Category;
-import com.ixcoret.blog.pojo.vo.CategoryBackVO;
-import com.ixcoret.blog.pojo.vo.form.CategoryForm;
+import com.ixcoret.blog.entity.Category;
+import com.ixcoret.blog.vo.CategoryBackVO;
+import com.ixcoret.blog.vo.CategoryOptionVO;
 
 import java.util.List;
 
@@ -14,11 +14,17 @@ public interface CategoryMapper {
 
     void save(Category category);
 
-    void update(CategoryForm categoryForm);
+    void update(Category category);
+
+    Category selectOne(String name);
 
     void deleteById(Integer id);
 
-    List<CategoryBackVO> listBackCategories();
+    Integer countCategories();
+
+    List<CategoryBackVO> listBackCategories(int index, int pageSize);
 
     void deleteBatch(List<Integer> ids);
+
+    List<CategoryOptionVO> listCategoryOptions();
 }

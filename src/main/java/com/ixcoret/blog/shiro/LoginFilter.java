@@ -1,8 +1,8 @@
 package com.ixcoret.blog.shiro;
 
 import com.alibaba.fastjson.JSON;
-import com.ixcoret.blog.enums.ResultEnum;
-import com.ixcoret.blog.utils.Result;
+import com.ixcoret.blog.enums.ResultCodeEnum;
+import com.ixcoret.blog.api.Result;
 import org.apache.shiro.web.filter.authc.UserFilter;
 
 import javax.servlet.ServletRequest;
@@ -29,6 +29,6 @@ public class LoginFilter extends UserFilter {
         // 设置响应头
         response.setContentType("application/json; charset=utf-8");
         // 直接写回未登录的json报文
-        response.getWriter().write(JSON.toJSONString(Result.error(ResultEnum.NOT_LOGIN)));
+        response.getWriter().write(JSON.toJSONString(Result.error(ResultCodeEnum.NOT_LOGIN)));
     }
 }

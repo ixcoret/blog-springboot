@@ -1,11 +1,11 @@
 package com.ixcoret.blog.controller;
 
-import com.ixcoret.blog.pojo.vo.ArticleBackVO;
-import com.ixcoret.blog.pojo.vo.form.ArticleForm;
-import com.ixcoret.blog.pojo.vo.form.Condition;
+import com.ixcoret.blog.vo.ArticleBackVO;
+import com.ixcoret.blog.dto.ArticleDTO;
+import com.ixcoret.blog.dto.Condition;
 import com.ixcoret.blog.service.ArticleService;
-import com.ixcoret.blog.utils.Page;
-import com.ixcoret.blog.utils.Result;
+import com.ixcoret.blog.api.Page;
+import com.ixcoret.blog.api.Result;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,8 +29,8 @@ public class ArticleController {
 
     @PostMapping("/admin/articles")
     @ApiOperation("保存文章")
-    public Result save(@Valid @RequestBody ArticleForm articleForm) {
-        articleService.save(articleForm);
+    public Result save(@Valid @RequestBody ArticleDTO articleDTO) {
+        articleService.save(articleDTO);
         return Result.success();
     }
 

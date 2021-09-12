@@ -1,12 +1,12 @@
 package com.ixcoret.blog.controller;
 
-import com.ixcoret.blog.enums.ResultEnum;
+import com.ixcoret.blog.api.Result;
+import com.ixcoret.blog.dto.LoginForm;
+import com.ixcoret.blog.entity.SysUser;
+import com.ixcoret.blog.enums.ResultCodeEnum;
 import com.ixcoret.blog.exception.BusinessException;
-import com.ixcoret.blog.pojo.entity.SysUser;
-import com.ixcoret.blog.pojo.vo.TokenVO;
-import com.ixcoret.blog.pojo.vo.form.LoginForm;
-import com.ixcoret.blog.utils.Result;
-import com.ixcoret.blog.utils.ShiroUtil;
+import com.ixcoret.blog.util.ShiroUtil;
+import com.ixcoret.blog.vo.TokenVO;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
@@ -42,7 +42,7 @@ public class SysUserController {
         try {
             subject.login(authenticationToken);
         }catch (Exception e) {
-            throw new BusinessException(ResultEnum.LOGIN_PARAMS_ERROR.getCode(), ResultEnum.LOGIN_PARAMS_ERROR.getMessage());
+            throw new BusinessException(ResultCodeEnum.LOGIN_PARAMS_ERROR.getCode(), ResultCodeEnum.LOGIN_PARAMS_ERROR.getMessage());
         }
 
         // 登录成功

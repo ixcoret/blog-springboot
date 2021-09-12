@@ -1,6 +1,6 @@
 package com.ixcoret.blog.context;
 
-import com.ixcoret.blog.pojo.entity.SysLog;
+import com.ixcoret.blog.entity.OperationLog;
 import lombok.Data;
 
 /**
@@ -10,12 +10,16 @@ import lombok.Data;
  */
 @Data
 public class SystemContext {
-    private static ThreadLocal<SysLog> threadLocal = new ThreadLocal<>();
+    private static ThreadLocal<OperationLog> threadLocal = new ThreadLocal<>();
 
-    public static SysLog getLog() {
+    public static OperationLog getLog() {
         if (threadLocal.get() == null) {
-            threadLocal.set(new SysLog());
+            threadLocal.set(new OperationLog());
         }
         return threadLocal.get();
+    }
+
+    public static void remove() {
+        threadLocal.remove();
     }
 }

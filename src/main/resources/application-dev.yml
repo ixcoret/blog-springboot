@@ -13,7 +13,7 @@ spring:
     # springboot自带的连接池，号称最快的连接池
     hikari:
       # 连接池名
-      pool-name: DateHikariCP
+      pool-name: HikariCP
       # 最小空闲连接数
       minimum-idle: 5
       # 空闲连接存活最大时间，默认600000（10分钟）

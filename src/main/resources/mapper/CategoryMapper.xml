@@ -2,6 +2,11 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.ixcoret.blog.mapper.CategoryMapper">
 
+    <sql id="Base_Column_List">
+        id
+        , name, create_time
+    </sql>
+
     <insert id="save" useGeneratedKeys="true" keyProperty="id" keyColumn="id">
         insert into t_category (name, create_time)
         values (#{name}, #{createTime})
@@ -33,11 +38,28 @@
         )
     </delete>
 
-    <select id="listBackCategories" resultType="com.ixcoret.blog.pojo.vo.CategoryBackVO">
+    <select id="listBackCategories" resultType="com.ixcoret.blog.vo.CategoryBackVO">
         select c.id, c.name, count(a.id) as articleCount, c.create_time as createTime
-        from t_category c
+        from (select id, name, create_time from t_category order by id desc limit #{index}, #{pageSize}) c
                  left join t_article a on c.id = a.category_id
         group by c.id
+    </select>
+
+    <select id="countCategories" resultType="java.lang.Integer">
+        select count(id)
+        from t_category
+    </select>
+
+    <select id="selectOne" resultType="com.ixcoret.blog.entity.Category">
+        select
+        <include refid="Base_Column_List"/>
+        from
+        t_category where name = #{name}
+    </select>
+
+    <select id="listCategoryOptions" resultType="com.ixcoret.blog.vo.CategoryOptionVO">
+        select id, name
+        from t_category
     </select>
 
 </mapper>
