@@ -3,28 +3,30 @@
 <mapper namespace="com.ixcoret.blog.mapper.TagMapper">
 
     <sql id="Base_Column_List">
-        id, name, create_time
+        id
+        , tag_name tagName, create_time createTime
     </sql>
 
     <insert id="saveBatch" useGeneratedKeys="true" keyProperty="id" keyColumn="id">
-        insert into t_tag(name) values
+        insert into t_tag(tag_name, create_time) values
         <foreach collection="tags" item="tag" separator=",">
-            (#{tag.name})
+            (#{tag.tagName}, #{tag.createTime})
         </foreach>
     </insert>
 
     <update id="update">
         update t_tag
         <set>
-            <if test="name != null and name != ''">
-                name = #{name}
+            <if test="tagName != null and tagName != ''">
+                tag_name = #{tagName}
             </if>
         </set>
         where id = #{id}
     </update>
 
     <update id="save">
-        insert into t_tag (name, create_time) values (#{name}, #{createTime})
+        insert into t_tag (tag_name, create_time)
+        values (#{tagName}, #{createTime})
     </update>
 
     <delete id="deleteById">
@@ -42,7 +44,7 @@
     </delete>
 
     <select id="listTagOptions" resultType="com.ixcoret.blog.vo.TagOptionVO">
-        select id, name
+        select id, tag_name tagName
         from t_tag;
     </select>
 
@@ -52,17 +54,27 @@
     </select>
 
     <select id="listBackTags" resultType="com.ixcoret.blog.vo.TagBackVO">
-        select t.id, t.name, count(a.id) as articleCount, t.create_time as createTime
-        from (select id, name, create_time from t_tag order by id desc limit #{index}, #{pageSize}) t
+        select t.id, t.tag_name tagName, count(a.id) articleCount, t.create_time createTime
+        from (select id, tag_name, create_time from t_tag order by id desc limit #{index}, #{pageSize}) t
                  left join t_article_tag a_t on t.id = a_t.tag_id
                  left join t_article a on a_t.article_id = a.id
         group by t.id
 
     </select>
 
-    <select id="selectOne" resultType="com.ixcoret.blog.entity.Tag">
+    <select id="selectByName" resultType="com.ixcoret.blog.entity.Tag">
         select
         <include refid="Base_Column_List"></include>
-        from t_tag where name = #{name}
+        from t_tag where tag_name = #{tagName}
     </select>
+
+    <select id="listTagsInTagNameList" resultType="com.ixcoret.blog.entity.Tag">
+        select id, tag_name tagName from t_tag where tag_name in (
+        <foreach collection="tagNameList" item="tagName" separator=",">
+            #{tagName}
+        </foreach>
+        )
+    </select>
+
+
 </mapper>

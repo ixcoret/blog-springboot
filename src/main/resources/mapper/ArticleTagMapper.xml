@@ -5,8 +5,8 @@
 
     <insert id="saveBatch">
         insert into t_article_tag values
-        <foreach collection="tags" separator="," item="tag">
-            (#{articleId}, #{tag.id})
+        <foreach collection="articleTagList" separator="," item="articleTag">
+            (#{articleTag.articleId}, #{articleTag.tagId})
         </foreach>
     </insert>
 </mapper>

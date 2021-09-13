@@ -18,7 +18,7 @@ public class TagBackVO implements Serializable {
     /**
      * 标签名
      */
-    private String name;
+    private String tagName;
 
     /**
      * 文章数量

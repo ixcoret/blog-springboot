@@ -19,7 +19,7 @@ public class Tag implements Serializable {
     /**
      * 标签名称
      */
-    private String name;
+    private String tagName;
 
     /**
      * 创建时间

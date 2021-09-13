@@ -63,7 +63,7 @@ public class SysUserController {
 
     @GetMapping("/logout")
     @ApiOperation("退出登录")
-    public Result logout() {
+    public Result<?> logout() {
         // 解决bug：退出登录删除redis中的token后，前端携带token仍能执行需认证的操作
         // shiro缓存中会存储token，让shiro删除token
         Subject subject = SecurityUtils.getSubject();

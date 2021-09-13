@@ -35,7 +35,7 @@ public class TagController {
 
     @DeleteMapping("/admin/tags/{id}")
     @ApiOperation("根据id删除")
-    public Result deleteById(@PathVariable Integer id) {
+    public Result<?> deleteById(@PathVariable Integer id) {
         if (id == null || id < 1) {
             return Result.error(ResultCodeEnum.PARAMS_ERROR);
         }
@@ -45,7 +45,7 @@ public class TagController {
 
     @DeleteMapping("/admin/tags/")
     @ApiOperation("根据id批量删除")
-    public Result deleteBatch(@RequestBody List<Integer> ids) {
+    public Result<?> deleteBatch(@RequestBody List<Integer> ids) {
         if (ids == null || ids.isEmpty()) {
             return Result.error(ResultCodeEnum.PARAMS_ERROR);
         }
@@ -60,7 +60,7 @@ public class TagController {
         return Result.success();
     }
 
-    @PostMapping("/admin/tags/options")
+    @PostMapping("/admin/tags/")
     @ApiOperation("新增标签")
     public Result<?> save(@Valid @RequestBody TagDTO tagDTO) {
         tagService.save(tagDTO);

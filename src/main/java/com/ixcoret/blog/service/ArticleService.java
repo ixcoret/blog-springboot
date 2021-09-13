@@ -10,6 +10,10 @@ import com.ixcoret.blog.api.Page;
  * @createTime 2021/7/6 21:07
  */
 public interface ArticleService {
+    /**
+     * 保存文章
+     * @param articleDTO
+     */
     void save(ArticleDTO articleDTO);
 
     /**

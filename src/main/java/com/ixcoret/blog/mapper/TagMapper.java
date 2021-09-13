@@ -3,6 +3,7 @@ package com.ixcoret.blog.mapper;
 import com.ixcoret.blog.entity.Tag;
 import com.ixcoret.blog.vo.TagBackVO;
 import com.ixcoret.blog.vo.TagOptionVO;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
@@ -10,6 +11,7 @@ import java.util.List;
  * @author ixcoret
  * @createTime 2021/6/30 10:11
  */
+@Repository
 public interface TagMapper {
     List<TagOptionVO> listTagOptions();
 
@@ -23,9 +25,11 @@ public interface TagMapper {
 
     void deleteBatch(List<Integer> ids);
 
-    Tag selectOne(String name);
+    Tag selectByName(String name);
 
     void update(Tag tag);
 
     void save(Tag tag);
+
+    List<Tag> listTagsInTagNameList(List<String> tagNameList);
 }

@@ -1,7 +1,7 @@
 package com.ixcoret.blog.dto;
 
-import com.ixcoret.blog.entity.Tag;
 import lombok.Data;
+import org.hibernate.validator.constraints.Length;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
@@ -13,23 +13,25 @@ import java.util.List;
  */
 @Data
 public class ArticleDTO {
+
     private Integer id;
     /**
      * 文章标题
      */
     @NotBlank(message = "文章标题不能为空！")
+    @Length(min = 5, message = "文章标题不少于5个字")
     private String title;
 
     /**
      * 文章分类
      */
-    private CategoryDTO categoryDTO;
+    private String categoryName;
 
     /**
-     * 文章标签列表
+     * 文章标签名列表
      */
     @Valid
-    private List<Tag> tags;
+    private List<String> tagNameList;
 
     /**
      * 文章正文

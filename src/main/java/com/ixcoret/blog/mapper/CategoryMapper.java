@@ -3,6 +3,7 @@ package com.ixcoret.blog.mapper;
 import com.ixcoret.blog.entity.Category;
 import com.ixcoret.blog.vo.CategoryBackVO;
 import com.ixcoret.blog.vo.CategoryOptionVO;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
@@ -10,13 +11,14 @@ import java.util.List;
  * @author ixcoret
  * @createTime 2021/6/15 10:26
  */
+@Repository
 public interface CategoryMapper {
 
     void save(Category category);
 
     void update(Category category);
 
-    Category selectOne(String name);
+    Category selectByName(String name);
 
     void deleteById(Integer id);
 

@@ -5,19 +5,19 @@
     <resultMap id="backArticleResultMap" type="com.ixcoret.blog.vo.ArticleBackVO">
         <id column="id" property="id"/>
         <result column="title" property="title"/>
-        <result column="name" property="categoryName"/>
+        <result column="category_name" property="categoryName"/>
         <result column="views" property="views"/>
         <result column="create_time" property="createTime"/>
         <result column="update_time" property="updateTime"/>
         <collection property="tagList" ofType="com.ixcoret.blog.vo.TagOptionVO">
             <id column="tag_id" property="id"/>
-            <result column="tag_name" property="name"/>
+            <result column="tag_name" property="tagName"/>
         </collection>
     </resultMap>
 
     <insert id="save" keyColumn="id" keyProperty="id" useGeneratedKeys="true">
-        insert into t_article(title, category_id, content)
-        values (#{title}, #{categoryDTO.id}, #{content})
+        insert into t_article(title, category_id, content, views, create_time, update_time)
+        values (#{title}, #{categoryId}, #{content}, #{views}, #{createTime}, #{updateTime})
     </insert>
 
     <select id="countArticles" resultType="java.lang.Integer">
@@ -26,9 +26,9 @@
     </select>
 
     <select id="listBackArticles" resultMap="backArticleResultMap">
-        select a.id, a.title, c.name, t.id as tag_id, t.name as tag_name, a.views, a.create_time, a.update_time
+        select a.id, a.title, c.category_name, t.id tag_id, t.tag_name, a.views, a.create_time, a.update_time
         from (select id, title, category_id, views, create_time, update_time
-              from t_article limit #{index}, #{pageSize}) a
+              from t_article order by id desc limit #{index}, #{pageSize}) a
                  left join t_category c on a.category_id = c.id
                  left join t_article_tag a_t on a.id = a_t.article_id
                  left join t_tag t on a_t.tag_id = t.id

@@ -9,10 +9,7 @@ import com.ixcoret.blog.api.Result;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 
@@ -29,7 +26,7 @@ public class ArticleController {
 
     @PostMapping("/admin/articles")
     @ApiOperation("保存文章")
-    public Result save(@Valid @RequestBody ArticleDTO articleDTO) {
+    public Result<?> save(@Valid @RequestBody ArticleDTO articleDTO) {
         articleService.save(articleDTO);
         return Result.success();
     }
@@ -39,5 +36,11 @@ public class ArticleController {
     public Result<Page<ArticleBackVO>> listBackArticles(Condition condition) {
         Page<ArticleBackVO> page = articleService.listBackArticles(condition);
         return Result.success(page);
+    }
+
+    @GetMapping("/admin/articles/{id}")
+    @ApiOperation("后台根据id获取文章")
+    public Result<ArticleDTO> getArticleById(@PathVariable Integer id) {
+        return null;
     }
 }

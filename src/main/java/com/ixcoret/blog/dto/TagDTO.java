@@ -19,5 +19,5 @@ public class TagDTO {
      */
     @NotBlank
     @Length(min = 2, message = "名称长度不能小于2")
-    private String name;
+    private String tagName;
 }

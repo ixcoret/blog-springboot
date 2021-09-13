@@ -20,7 +20,7 @@ public class CategoryBackVO implements Serializable {
     /**
      * 分类名称
      */
-    private String name;
+    private String categoryName;
 
     /**
      * 该分类下的文章数量

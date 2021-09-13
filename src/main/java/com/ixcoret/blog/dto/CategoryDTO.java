@@ -19,6 +19,6 @@ public class CategoryDTO {
      */
     @NotBlank(message = "分类名称不能为空")
     @Length(min = 2, message = "名称长度不能小于2")
-    private String name;
+    private String categoryName;
 
 }

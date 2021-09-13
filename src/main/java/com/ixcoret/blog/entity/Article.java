@@ -10,6 +10,7 @@ import java.time.LocalDateTime;
  */
 @Data
 public class Article {
+
     private Integer id;
 
     /**

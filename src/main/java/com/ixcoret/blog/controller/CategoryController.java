@@ -29,21 +29,21 @@ public class CategoryController {
 
     @PostMapping("/admin/categories")
     @ApiOperation("新增分类")
-    public Result save(@Valid @RequestBody CategoryDTO categoryDTO) {
+    public Result<?> save(@Valid @RequestBody CategoryDTO categoryDTO) {
         categoryService.save(categoryDTO);
         return Result.success();
     }
 
     @PutMapping("/admin/categories")
     @ApiOperation("修改分类")
-    public Result update(@Valid @RequestBody CategoryDTO categoryDTO) {
+    public Result<?> update(@Valid @RequestBody CategoryDTO categoryDTO) {
         categoryService.update(categoryDTO);
         return Result.success();
     }
 
     @DeleteMapping("/admin/categories/{id}")
     @ApiOperation("根据id删除")
-    public Result deleteById(@PathVariable Integer id) {
+    public Result<?> deleteById(@PathVariable Integer id) {
         if (id == null || id < 1) {
             return Result.error(ResultCodeEnum.PARAMS_ERROR);
         }
@@ -53,7 +53,7 @@ public class CategoryController {
 
     @DeleteMapping("/admin/categories")
     @ApiOperation("根据id批量删除")
-    public Result deleteBatch(@RequestBody List<Integer> ids) {
+    public Result<?> deleteBatch(@RequestBody List<Integer> ids) {
         if (ids == null || ids.isEmpty()) {
             return Result.error(ResultCodeEnum.PARAMS_ERROR);
         }

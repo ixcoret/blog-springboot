@@ -19,7 +19,7 @@ public class Category {
     /**
      * 分类名称
      */
-    private String name;
+    private String categoryName;
 
     /**
      * 创建时间

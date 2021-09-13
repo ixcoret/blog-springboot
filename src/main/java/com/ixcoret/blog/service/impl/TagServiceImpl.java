@@ -58,7 +58,7 @@ public class TagServiceImpl implements TagService {
 
     @Override
     public void update(TagDTO tagDTO) {
-        Tag tag = tagMapper.selectOne(tagDTO.getName());
+        Tag tag = tagMapper.selectByName(tagDTO.getTagName());
         if (tag != null) {
             throw new BusinessException(ResultCodeEnum.DATA_DUPLICATE.getCode(), "标签名已存在");
         }
@@ -69,12 +69,12 @@ public class TagServiceImpl implements TagService {
 
     @Override
     public void save(TagDTO tagDTO) {
-        Tag tag = tagMapper.selectOne(tagDTO.getName());
+        Tag tag = tagMapper.selectByName(tagDTO.getTagName());
         if (tag != null) {
             throw new BusinessException(ResultCodeEnum.DATA_DUPLICATE.getCode(), "标签名已存在");
         }
         tag = new Tag();
-        tag.setName(tagDTO.getName());
+        tag.setTagName(tagDTO.getTagName());
         tag.setCreateTime(LocalDateTime.now());
         tagMapper.save(tag);
     }

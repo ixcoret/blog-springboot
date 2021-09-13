@@ -34,12 +34,12 @@ public class CategoryServiceImpl implements CategoryService {
      */
     @Override
     public void save(CategoryDTO categoryDTO) {
-        Category category = categoryMapper.selectOne(categoryDTO.getName());
+        Category category = categoryMapper.selectByName(categoryDTO.getCategoryName());
         if (category != null) {
             throw new BusinessException(ResultCodeEnum.DATA_DUPLICATE.getCode(), "分类名已存在");
         }
         category = new Category();
-        category.setName(categoryDTO.getName());
+        category.setCategoryName(categoryDTO.getCategoryName());
         category.setCreateTime(LocalDateTime.now());
         categoryMapper.save(category);
     }
@@ -52,7 +52,7 @@ public class CategoryServiceImpl implements CategoryService {
      */
     @Override
     public void update(CategoryDTO categoryDTO) {
-        Category category = categoryMapper.selectOne(categoryDTO.getName());
+        Category category = categoryMapper.selectByName(categoryDTO.getCategoryName());
         if (category != null) {
             throw new BusinessException(ResultCodeEnum.DATA_DUPLICATE.getCode(), "分类名已存在");
         }

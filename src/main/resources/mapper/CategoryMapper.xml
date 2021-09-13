@@ -3,20 +3,19 @@
 <mapper namespace="com.ixcoret.blog.mapper.CategoryMapper">
 
     <sql id="Base_Column_List">
-        id
-        , name, create_time
+        id, category_name categoryName, create_time createTime
     </sql>
 
     <insert id="save" useGeneratedKeys="true" keyProperty="id" keyColumn="id">
-        insert into t_category (name, create_time)
-        values (#{name}, #{createTime})
+        insert into t_category (category_name, create_time)
+        values (#{categoryName}, #{createTime})
     </insert>
 
     <update id="update">
         update t_category
         <set>
-            <if test="name != null and name != ''">
-                name = #{name},
+            <if test="categoryName != null and categoryName != ''">
+                category_name = #{categoryName},
             </if>
         </set>
         where id = #{id}
@@ -39,8 +38,8 @@
     </delete>
 
     <select id="listBackCategories" resultType="com.ixcoret.blog.vo.CategoryBackVO">
-        select c.id, c.name, count(a.id) as articleCount, c.create_time as createTime
-        from (select id, name, create_time from t_category order by id desc limit #{index}, #{pageSize}) c
+        select c.id, c.category_name categoryName, count(a.id) articleCount, c.create_time createTime
+        from (select id, category_name, create_time from t_category order by id desc limit #{index}, #{pageSize}) c
                  left join t_article a on c.id = a.category_id
         group by c.id
     </select>
@@ -50,15 +49,15 @@
         from t_category
     </select>
 
-    <select id="selectOne" resultType="com.ixcoret.blog.entity.Category">
+    <select id="selectByName" resultType="com.ixcoret.blog.entity.Category">
         select
         <include refid="Base_Column_List"/>
         from
-        t_category where name = #{name}
+        t_category where category_name = #{categoryName}
     </select>
 
     <select id="listCategoryOptions" resultType="com.ixcoret.blog.vo.CategoryOptionVO">
-        select id, name
+        select id, category_name categoryName
         from t_category
     </select>
 

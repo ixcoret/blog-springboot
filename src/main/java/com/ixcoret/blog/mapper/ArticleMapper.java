@@ -1,7 +1,8 @@
 package com.ixcoret.blog.mapper;
 
+import com.ixcoret.blog.entity.Article;
 import com.ixcoret.blog.vo.ArticleBackVO;
-import com.ixcoret.blog.dto.ArticleDTO;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
@@ -9,8 +10,9 @@ import java.util.List;
  * @author ixcoret
  * @createTime 2021/7/6 21:08
  */
+@Repository
 public interface ArticleMapper {
-    void save(ArticleDTO articleDTO);
+    void save(Article article);
 
     List<ArticleBackVO> listBackArticles(int index, int pageSize);
 
