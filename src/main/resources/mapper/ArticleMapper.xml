@@ -2,6 +2,11 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.ixcoret.blog.mapper.ArticleMapper">
 
+    <sql id="Base_Column_List">
+        id
+        , title, category_id categoryId, content, views, is_deleted deleted, create_time createTime, update_time updateTime
+    </sql>
+
     <resultMap id="backArticleResultMap" type="com.ixcoret.blog.vo.ArticleBackVO">
         <id column="id" property="id"/>
         <result column="title" property="title"/>
@@ -16,9 +21,36 @@
     </resultMap>
 
     <insert id="save" keyColumn="id" keyProperty="id" useGeneratedKeys="true">
-        insert into t_article(title, category_id, content, views, create_time, update_time)
-        values (#{title}, #{categoryId}, #{content}, #{views}, #{createTime}, #{updateTime})
+        insert into t_article(title, category_id, content, views, is_deleted, create_time, update_time)
+        values (#{title}, #{categoryId}, #{content}, #{views}, #{deleted}, #{createTime}, #{updateTime})
     </insert>
+
+    <update id="updateArticleDelete">
+        update t_article set is_deleted = #{deleted} where id in (
+        <foreach collection="idList" item="id" separator=",">
+            #{id}
+        </foreach>
+        )
+    </update>
+
+    <update id="update">
+        update t_article
+        <set>
+            <if test="title != null and title != ''">
+                title = #{title},
+            </if>
+            <if test="categoryId != null">
+                category_id = #{categoryId},
+            </if>
+            <if test="content != null and content != ''">
+                content = #{content},
+            </if>
+            <if test="updateTime != null">
+                update_time = #{updateTime},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
 
     <select id="countArticles" resultType="java.lang.Integer">
         select count(id)
@@ -26,11 +58,27 @@
     </select>
 
     <select id="listBackArticles" resultMap="backArticleResultMap">
-        select a.id, a.title, c.category_name, t.id tag_id, t.tag_name, a.views, a.create_time, a.update_time
+        select a.id,
+               a.title,
+               c.category_name,
+               t.id tag_id,
+               t.tag_name,
+               a.views,
+               a.create_time,
+               a.update_time
         from (select id, title, category_id, views, create_time, update_time
-              from t_article order by id desc limit #{index}, #{pageSize}) a
+              from t_article
+              where is_deleted = 0
+              order by id desc limit #{index}, #{pageSize}) a
                  left join t_category c on a.category_id = c.id
                  left join t_article_tag a_t on a.id = a_t.article_id
                  left join t_tag t on a_t.tag_id = t.id
     </select>
+
+    <select id="getArticleById" resultType="com.ixcoret.blog.entity.Article">
+        select
+        <include refid="Base_Column_List"></include>
+        from t_article where id = #{id}
+    </select>
+
 </mapper>

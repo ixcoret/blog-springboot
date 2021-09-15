@@ -5,6 +5,7 @@ import org.hibernate.validator.constraints.Length;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
+import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -12,7 +13,7 @@ import java.util.List;
  * @createTime 2021/7/4 13:36
  */
 @Data
-public class ArticleDTO {
+public class ArticleDTO implements Serializable {
 
     private Integer id;
     /**

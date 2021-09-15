@@ -8,7 +8,7 @@ import lombok.Data;
  * @createTime 2021/9/3 15:09
  */
 @Data
-public class Condition {
+public class ConditionDTO {
     /**
      * 当前页
      */

@@ -34,6 +34,11 @@ public class Article {
     private Integer views;
 
     /**
+     * 是否删除：1删除，0否
+     */
+    private Boolean deleted;
+
+    /**
      * 文章发布时间
      */
     private LocalDateTime createTime;

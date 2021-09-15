@@ -1,7 +1,7 @@
 package com.ixcoret.blog.service;
 
 import com.ixcoret.blog.api.Page;
-import com.ixcoret.blog.dto.Condition;
+import com.ixcoret.blog.dto.ConditionDTO;
 import com.ixcoret.blog.dto.TagDTO;
 import com.ixcoret.blog.vo.TagBackVO;
 import com.ixcoret.blog.vo.TagOptionVO;
@@ -15,7 +15,7 @@ import java.util.List;
 public interface TagService {
     List<TagOptionVO> listTagOptions();
 
-    Page<TagBackVO> listBackTags(Condition condition);
+    Page<TagBackVO> listBackTags(ConditionDTO conditionDTO);
 
     void deleteById(Integer id);
 

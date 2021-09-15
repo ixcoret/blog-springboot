@@ -3,7 +3,7 @@ package com.ixcoret.blog.controller;
 import com.ixcoret.blog.api.Page;
 import com.ixcoret.blog.api.Result;
 import com.ixcoret.blog.dto.CategoryDTO;
-import com.ixcoret.blog.dto.Condition;
+import com.ixcoret.blog.dto.ConditionDTO;
 import com.ixcoret.blog.enums.ResultCodeEnum;
 import com.ixcoret.blog.service.CategoryService;
 import com.ixcoret.blog.vo.CategoryBackVO;
@@ -63,8 +63,8 @@ public class CategoryController {
 
     @GetMapping("/admin/categories")
     @ApiOperation("获取后台分类列表")
-    public Result<Page<CategoryBackVO>> listBackCategories(Condition condition) {
-        Page<CategoryBackVO> page = categoryService.listBackCategories(condition);
+    public Result<Page<CategoryBackVO>> listBackCategories(ConditionDTO conditionDTO) {
+        Page<CategoryBackVO> page = categoryService.listBackCategories(conditionDTO);
         return Result.success(page);
     }
 

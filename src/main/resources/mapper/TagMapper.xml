@@ -3,8 +3,7 @@
 <mapper namespace="com.ixcoret.blog.mapper.TagMapper">
 
     <sql id="Base_Column_List">
-        id
-        , tag_name tagName, create_time createTime
+        id, tag_name tagName, create_time createTime
     </sql>
 
     <insert id="saveBatch" useGeneratedKeys="true" keyProperty="id" keyColumn="id">
@@ -62,7 +61,7 @@
 
     </select>
 
-    <select id="selectByName" resultType="com.ixcoret.blog.entity.Tag">
+    <select id="getByName" resultType="com.ixcoret.blog.entity.Tag">
         select
         <include refid="Base_Column_List"></include>
         from t_tag where tag_name = #{tagName}
@@ -74,6 +73,12 @@
             #{tagName}
         </foreach>
         )
+    </select>
+
+    <select id="listTagNameByArticleId" resultType="java.lang.String">
+        select t.tag_name
+        from t_tag t join t_article_tag a_t on t.id = a_t.tag_id
+        where a_t.article_id = #{articleId}
     </select>
 
 

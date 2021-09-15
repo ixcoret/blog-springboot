@@ -18,7 +18,7 @@ public interface CategoryMapper {
 
     void update(Category category);
 
-    Category selectByName(String name);
+    Category getByName(String name);
 
     void deleteById(Integer id);
 
@@ -29,4 +29,6 @@ public interface CategoryMapper {
     void deleteBatch(List<Integer> ids);
 
     List<CategoryOptionVO> listCategoryOptions();
+
+    Category getById(Integer id);
 }

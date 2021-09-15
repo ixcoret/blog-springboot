@@ -2,7 +2,7 @@ package com.ixcoret.blog.service;
 
 import com.ixcoret.blog.api.Page;
 import com.ixcoret.blog.dto.CategoryDTO;
-import com.ixcoret.blog.dto.Condition;
+import com.ixcoret.blog.dto.ConditionDTO;
 import com.ixcoret.blog.vo.CategoryBackVO;
 import com.ixcoret.blog.vo.CategoryOptionVO;
 
@@ -35,7 +35,7 @@ public interface CategoryService {
      * 列表查询
      * @return
      */
-    Page<CategoryBackVO> listBackCategories(Condition condition);
+    Page<CategoryBackVO> listBackCategories(ConditionDTO conditionDTO);
 
     /**
      * 根据id批量删除

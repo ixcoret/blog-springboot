@@ -25,11 +25,13 @@ public interface TagMapper {
 
     void deleteBatch(List<Integer> ids);
 
-    Tag selectByName(String name);
+    Tag getByName(String name);
 
     void update(Tag tag);
 
     void save(Tag tag);
 
     List<Tag> listTagsInTagNameList(List<String> tagNameList);
+
+    List<String> listTagNameByArticleId(Integer articleId);
 }

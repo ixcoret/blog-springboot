@@ -1,8 +1,9 @@
 package com.ixcoret.blog.service;
 
+import com.ixcoret.blog.dto.DeleteDTO;
 import com.ixcoret.blog.vo.ArticleBackVO;
 import com.ixcoret.blog.dto.ArticleDTO;
-import com.ixcoret.blog.dto.Condition;
+import com.ixcoret.blog.dto.ConditionDTO;
 import com.ixcoret.blog.api.Page;
 
 /**
@@ -20,5 +21,9 @@ public interface ArticleService {
      * 获取后台分类列表：分页查询
      * @return
      */
-    Page<ArticleBackVO> listBackArticles(Condition condition);
+    Page<ArticleBackVO> listBackArticles(ConditionDTO conditionDTO);
+
+    void updateArticleDelete(DeleteDTO deleteDTO);
+
+    ArticleDTO getBackArticleById(Integer articleId);
 }

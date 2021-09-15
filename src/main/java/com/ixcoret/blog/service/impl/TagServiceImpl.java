@@ -1,7 +1,7 @@
 package com.ixcoret.blog.service.impl;
 
 import com.ixcoret.blog.api.Page;
-import com.ixcoret.blog.dto.Condition;
+import com.ixcoret.blog.dto.ConditionDTO;
 import com.ixcoret.blog.dto.TagDTO;
 import com.ixcoret.blog.entity.Tag;
 import com.ixcoret.blog.enums.ResultCodeEnum;
@@ -33,15 +33,15 @@ public class TagServiceImpl implements TagService {
     }
 
     @Override
-    public Page<TagBackVO> listBackTags(Condition condition) {
+    public Page<TagBackVO> listBackTags(ConditionDTO conditionDTO) {
         Integer total = tagMapper.countTags();
         if (total == 0) {
             return new Page<>();
         }
         Page<TagBackVO> page = new Page<>();
         page.setTotal(total);
-        int index = PageUtil.startIndex(condition.getPageNum(), condition.getPageSize());
-        List<TagBackVO> list = tagMapper.listBackTags(index, condition.getPageSize());
+        int index = PageUtil.startIndex(conditionDTO.getPageNum(), conditionDTO.getPageSize());
+        List<TagBackVO> list = tagMapper.listBackTags(index, conditionDTO.getPageSize());
         page.setList(list);
         return page;
     }
@@ -58,7 +58,7 @@ public class TagServiceImpl implements TagService {
 
     @Override
     public void update(TagDTO tagDTO) {
-        Tag tag = tagMapper.selectByName(tagDTO.getTagName());
+        Tag tag = tagMapper.getByName(tagDTO.getTagName());
         if (tag != null) {
             throw new BusinessException(ResultCodeEnum.DATA_DUPLICATE.getCode(), "标签名已存在");
         }
@@ -69,7 +69,7 @@ public class TagServiceImpl implements TagService {
 
     @Override
     public void save(TagDTO tagDTO) {
-        Tag tag = tagMapper.selectByName(tagDTO.getTagName());
+        Tag tag = tagMapper.getByName(tagDTO.getTagName());
         if (tag != null) {
             throw new BusinessException(ResultCodeEnum.DATA_DUPLICATE.getCode(), "标签名已存在");
         }

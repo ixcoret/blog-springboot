@@ -12,4 +12,6 @@ import java.util.List;
 @Repository
 public interface ArticleTagMapper {
     void saveBatch(List<ArticleTag> articleTagList);
+
+    void deleteBatch(Integer articleId);
 }

@@ -2,7 +2,7 @@ package com.ixcoret.blog.controller;
 
 import com.ixcoret.blog.api.Page;
 import com.ixcoret.blog.api.Result;
-import com.ixcoret.blog.dto.Condition;
+import com.ixcoret.blog.dto.ConditionDTO;
 import com.ixcoret.blog.dto.TagDTO;
 import com.ixcoret.blog.enums.ResultCodeEnum;
 import com.ixcoret.blog.service.TagService;
@@ -28,8 +28,8 @@ public class TagController {
 
     @ApiOperation("后台标签列表")
     @GetMapping("/admin/tags/")
-    public Result<Page<TagBackVO>> listBackTags(Condition condition) {
-        Page<TagBackVO> page = tagService.listBackTags(condition);
+    public Result<Page<TagBackVO>> listBackTags(ConditionDTO conditionDTO) {
+        Page<TagBackVO> page = tagService.listBackTags(conditionDTO);
         return Result.success(page);
     }
 

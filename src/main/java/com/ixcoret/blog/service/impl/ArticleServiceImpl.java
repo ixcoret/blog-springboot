@@ -2,7 +2,8 @@ package com.ixcoret.blog.service.impl;
 
 import com.ixcoret.blog.api.Page;
 import com.ixcoret.blog.dto.ArticleDTO;
-import com.ixcoret.blog.dto.Condition;
+import com.ixcoret.blog.dto.ConditionDTO;
+import com.ixcoret.blog.dto.DeleteDTO;
 import com.ixcoret.blog.entity.Article;
 import com.ixcoret.blog.entity.ArticleTag;
 import com.ixcoret.blog.entity.Category;
@@ -56,21 +57,29 @@ public class ArticleServiceImpl implements ArticleService {
         }
         article.setTitle(articleDTO.getTitle());
         article.setContent(articleDTO.getContent());
-        article.setViews(0);
-        article.setCreateTime(LocalDateTime.now());
         article.setUpdateTime(LocalDateTime.now());
-
-        articleMapper.save(article);
+        if (articleDTO.getId() == null) {
+            article.setViews(0);
+            article.setDeleted(false);
+            article.setCreateTime(LocalDateTime.now());
+            articleMapper.save(article);
+        } else {
+            article.setId(articleDTO.getId());
+            articleMapper.update(article);
+        }
 
         saveArticleTag(articleDTO, article.getId());
     }
 
     private Category saveArticleCategory(ArticleDTO articleDTO) {
+        if (articleDTO.getId() != null) {
+            articleTagMapper.deleteBatch(articleDTO.getId());
+        }
         String categoryName = articleDTO.getCategoryName();
         if (categoryName == null || categoryName.trim().equals("")) {
             return null;
         }
-        Category category = categoryMapper.selectByName(categoryName);
+        Category category = categoryMapper.getByName(categoryName);
         if (category != null) {
             return category;
         }
@@ -114,16 +123,38 @@ public class ArticleServiceImpl implements ArticleService {
      * @return
      */
     @Override
-    public Page<ArticleBackVO> listBackArticles(Condition condition) {
+    public Page<ArticleBackVO> listBackArticles(ConditionDTO conditionDTO) {
         Integer total = articleMapper.countArticles();
         if (total == 0) {
             return new Page<>();
         }
         Page<ArticleBackVO> page = new Page<>();
         page.setTotal(total);
-        int index = PageUtil.startIndex(condition.getPageNum(), condition.getPageSize());
-        List<ArticleBackVO> list = articleMapper.listBackArticles(index, condition.getPageSize());
+        int index = PageUtil.startIndex(conditionDTO.getPageNum(), conditionDTO.getPageSize());
+        List<ArticleBackVO> list = articleMapper.listBackArticles(index, conditionDTO.getPageSize());
         page.setList(list);
         return page;
+    }
+
+    @Override
+    public void updateArticleDelete(DeleteDTO deleteDTO) {
+        articleMapper.updateArticleDelete(deleteDTO);
+    }
+
+    @Override
+    public ArticleDTO getBackArticleById(Integer articleId) {
+        Article article = articleMapper.getArticleById(articleId);
+        if (article == null) {
+            return null;
+        }
+        Category category = categoryMapper.getById(article.getCategoryId());
+        List<String> tagNameList = tagMapper.listTagNameByArticleId(articleId);
+        ArticleDTO articleDTO = new ArticleDTO();
+        articleDTO.setId(article.getId());
+        articleDTO.setTitle(article.getTitle());
+        articleDTO.setCategoryName(category.getCategoryName());
+        articleDTO.setTagNameList(tagNameList);
+        articleDTO.setContent(article.getContent());
+        return articleDTO;
     }
 }

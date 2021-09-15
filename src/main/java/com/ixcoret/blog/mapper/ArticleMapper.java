@@ -1,5 +1,6 @@
 package com.ixcoret.blog.mapper;
 
+import com.ixcoret.blog.dto.DeleteDTO;
 import com.ixcoret.blog.entity.Article;
 import com.ixcoret.blog.vo.ArticleBackVO;
 import org.springframework.stereotype.Repository;
@@ -17,4 +18,10 @@ public interface ArticleMapper {
     List<ArticleBackVO> listBackArticles(int index, int pageSize);
 
     Integer countArticles();
+
+    void updateArticleDelete(DeleteDTO deleteDTO);
+
+    Article getArticleById(Integer id);
+
+    void update(Article article);
 }

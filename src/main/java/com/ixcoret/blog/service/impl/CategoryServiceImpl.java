@@ -2,7 +2,7 @@ package com.ixcoret.blog.service.impl;
 
 import com.ixcoret.blog.api.Page;
 import com.ixcoret.blog.dto.CategoryDTO;
-import com.ixcoret.blog.dto.Condition;
+import com.ixcoret.blog.dto.ConditionDTO;
 import com.ixcoret.blog.entity.Category;
 import com.ixcoret.blog.enums.ResultCodeEnum;
 import com.ixcoret.blog.exception.BusinessException;
@@ -34,7 +34,7 @@ public class CategoryServiceImpl implements CategoryService {
      */
     @Override
     public void save(CategoryDTO categoryDTO) {
-        Category category = categoryMapper.selectByName(categoryDTO.getCategoryName());
+        Category category = categoryMapper.getByName(categoryDTO.getCategoryName());
         if (category != null) {
             throw new BusinessException(ResultCodeEnum.DATA_DUPLICATE.getCode(), "分类名已存在");
         }
@@ -52,7 +52,7 @@ public class CategoryServiceImpl implements CategoryService {
      */
     @Override
     public void update(CategoryDTO categoryDTO) {
-        Category category = categoryMapper.selectByName(categoryDTO.getCategoryName());
+        Category category = categoryMapper.getByName(categoryDTO.getCategoryName());
         if (category != null) {
             throw new BusinessException(ResultCodeEnum.DATA_DUPLICATE.getCode(), "分类名已存在");
         }
@@ -72,15 +72,15 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
-    public Page<CategoryBackVO> listBackCategories(Condition condition) {
+    public Page<CategoryBackVO> listBackCategories(ConditionDTO conditionDTO) {
         Integer total = categoryMapper.countCategories();
         if (total == 0) {
             return new Page<>();
         }
         Page<CategoryBackVO> page = new Page<>();
         page.setTotal(total);
-        int index = PageUtil.startIndex(condition.getPageNum(), condition.getPageSize());
-        List<CategoryBackVO> list = categoryMapper.listBackCategories(index, condition.getPageSize());
+        int index = PageUtil.startIndex(conditionDTO.getPageNum(), conditionDTO.getPageSize());
+        List<CategoryBackVO> list = categoryMapper.listBackCategories(index, conditionDTO.getPageSize());
         page.setList(list);
         return page;
     }

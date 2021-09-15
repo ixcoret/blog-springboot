@@ -9,4 +9,8 @@
             (#{articleTag.articleId}, #{articleTag.tagId})
         </foreach>
     </insert>
+
+    <delete id="deleteBatch">
+        delete from t_article_tag where article_id = #{articleId}
+    </delete>
 </mapper>
