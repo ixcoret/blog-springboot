@@ -41,11 +41,11 @@ public class ShiroConfig {
         shiroFilterFactoryBean.setSecurityManager(securityManager);
         Map<String, Filter> shiroFilters = shiroFilterFactoryBean.getFilters();
         shiroFilters.put("authc", new LoginFilter());
-        // 设置需要认证或者需要放行的接口
+        // 设置放行的接口
         Map<String, String> filterMap = new LinkedHashMap<>();
         filterMap.put("/sys/user/login", "anon");
         filterMap.put("/sys/user/logout", "anon");
-
+        filterMap.put("/articles/**", "anon");
 
         // 放行swagger、swagger-bootstrap-ui
         filterMap.put("/webjars/**", "anon");

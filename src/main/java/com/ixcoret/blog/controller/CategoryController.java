@@ -7,7 +7,7 @@ import com.ixcoret.blog.dto.ConditionDTO;
 import com.ixcoret.blog.enums.ResultCodeEnum;
 import com.ixcoret.blog.service.CategoryService;
 import com.ixcoret.blog.vo.CategoryBackVO;
-import com.ixcoret.blog.vo.CategoryOptionVO;
+import com.ixcoret.blog.vo.CategorySimpleVO;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -69,8 +69,8 @@ public class CategoryController {
     }
 
     @GetMapping("/admin/categories/options")
-    public Result<List<CategoryOptionVO>> listCategoryOptions() {
-        List<CategoryOptionVO> categoryOptions = categoryService.listCategoryOptions();
+    public Result<List<CategorySimpleVO>> listCategoryOptions() {
+        List<CategorySimpleVO> categoryOptions = categoryService.listCategoryOptions();
         return Result.success(categoryOptions);
     }
 

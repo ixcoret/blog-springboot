@@ -14,8 +14,9 @@ import com.ixcoret.blog.mapper.CategoryMapper;
 import com.ixcoret.blog.mapper.TagMapper;
 import com.ixcoret.blog.service.ArticleService;
 import com.ixcoret.blog.util.PageUtil;
-import com.ixcoret.blog.vo.ArticleBackVO;
+import com.ixcoret.blog.vo.*;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -156,5 +157,36 @@ public class ArticleServiceImpl implements ArticleService {
         articleDTO.setTagNameList(tagNameList);
         articleDTO.setContent(article.getContent());
         return articleDTO;
+    }
+
+    @Override
+    public Page<ArticlePreviewVO> listPreviewArticles(ConditionDTO conditionDTO) {
+        Integer total = articleMapper.countArticles();
+        if (total == 0) {
+            return new Page<>();
+        }
+        Page<ArticlePreviewVO> page = new Page<>();
+        page.setTotal(total);
+        int index = PageUtil.startIndex(conditionDTO.getPageNum(), conditionDTO.getPageSize());
+        List<ArticlePreviewVO> frontArticles = articleMapper.listPreviewArticles(index, conditionDTO.getPageSize());
+        page.setList(frontArticles);
+        return page;
+    }
+
+    @Override
+    public ArticleDetailVO getArticleById(Integer articleId) {
+        Article article = articleMapper.getArticleById(articleId);
+        if (article == null) {
+            return null;
+        }
+        ArticleDetailVO articleDetailVO = new ArticleDetailVO();
+        BeanUtils.copyProperties(article, articleDetailVO);
+        Category category = categoryMapper.getById(article.getCategoryId());
+        CategorySimpleVO categorySimpleVO = new CategorySimpleVO();
+        BeanUtils.copyProperties(category, categorySimpleVO);
+        articleDetailVO.setCategory(categorySimpleVO);
+        List<TagSimpleVO> tagList = tagMapper.getByArticleId(articleId);
+        articleDetailVO.setTagList(tagList);
+        return articleDetailVO;
     }
 }

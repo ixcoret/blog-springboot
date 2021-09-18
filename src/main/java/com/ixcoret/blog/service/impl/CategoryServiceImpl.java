@@ -10,7 +10,7 @@ import com.ixcoret.blog.mapper.CategoryMapper;
 import com.ixcoret.blog.service.CategoryService;
 import com.ixcoret.blog.util.PageUtil;
 import com.ixcoret.blog.vo.CategoryBackVO;
-import com.ixcoret.blog.vo.CategoryOptionVO;
+import com.ixcoret.blog.vo.CategorySimpleVO;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -95,7 +95,7 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
-    public List<CategoryOptionVO> listCategoryOptions() {
+    public List<CategorySimpleVO> listCategoryOptions() {
         return categoryMapper.listCategoryOptions();
     }
 }

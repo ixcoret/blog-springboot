@@ -9,7 +9,7 @@ import java.io.Serializable;
  * @createTime 2021/9/12 18:04
  */
 @Data
-public class CategoryOptionVO implements Serializable {
+public class CategorySimpleVO implements Serializable {
 
     private Integer id;
 

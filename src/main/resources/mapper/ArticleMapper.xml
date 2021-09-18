@@ -14,7 +14,23 @@
         <result column="views" property="views"/>
         <result column="create_time" property="createTime"/>
         <result column="update_time" property="updateTime"/>
-        <collection property="tagList" ofType="com.ixcoret.blog.vo.TagOptionVO">
+        <collection property="tagList" ofType="com.ixcoret.blog.vo.TagSimpleVO">
+            <id column="tag_id" property="id"/>
+            <result column="tag_name" property="tagName"/>
+        </collection>
+    </resultMap>
+
+    <resultMap id="articlePreviewResultMap" type="com.ixcoret.blog.vo.ArticlePreviewVO">
+        <id column="id" property="id"/>
+        <result column="title" property="title"/>
+        <result column="content" property="content"/>
+        <result column="views" property="views"/>
+        <result column="create_time" property="createTime"/>
+        <association property="category" javaType="com.ixcoret.blog.vo.CategorySimpleVO">
+            <id column="category_id" property="id"/>
+            <result column="category_name" property="categoryName"/>
+        </association>
+        <collection property="tagList" ofType="com.ixcoret.blog.vo.TagSimpleVO">
             <id column="tag_id" property="id"/>
             <result column="tag_name" property="tagName"/>
         </collection>
@@ -59,11 +75,11 @@
 
     <select id="listBackArticles" resultMap="backArticleResultMap">
         select a.id,
-               a.title,
-               c.category_name,
-               t.id tag_id,
-               t.tag_name,
-               a.views,
+               title,
+               category_name,
+               tag_id,
+               tag_name,
+               views,
                a.create_time,
                a.update_time
         from (select id, title, category_id, views, create_time, update_time
@@ -79,6 +95,25 @@
         select
         <include refid="Base_Column_List"></include>
         from t_article where id = #{id}
+    </select>
+
+    <select id="listPreviewArticles" resultMap="articlePreviewResultMap">
+        select a.id,
+               title,
+               category_id,
+               category_name,
+               tag_id,
+               tag_name,
+               SUBSTR(content,1,200) as content,
+               views,
+               a.create_time
+        from (select id, title, category_id, content, views, create_time
+              from t_article
+              where is_deleted = 0
+              order by id desc limit #{index}, #{pageSize}) a
+                 left join t_category c on a.category_id = c.id
+                 left join t_article_tag a_t on a.id = a_t.article_id
+                 left join t_tag t on a_t.tag_id = t.id
     </select>
 
 </mapper>

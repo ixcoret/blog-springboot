@@ -56,7 +56,7 @@
         t_category where category_name = #{categoryName}
     </select>
 
-    <select id="listCategoryOptions" resultType="com.ixcoret.blog.vo.CategoryOptionVO">
+    <select id="listCategoryOptions" resultType="com.ixcoret.blog.vo.CategorySimpleVO">
         select id, category_name categoryName
         from t_category
     </select>

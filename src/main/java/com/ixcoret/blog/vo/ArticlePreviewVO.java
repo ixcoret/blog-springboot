@@ -9,10 +9,10 @@ import java.util.List;
 
 /**
  * @author ixcoret
- * @createTime 2021/9/2 12:01
+ * @createTime 2021/9/17 8:03
  */
 @Data
-public class ArticleBackVO implements Serializable {
+public class ArticlePreviewVO implements Serializable {
 
     private Integer id;
 
@@ -22,14 +22,19 @@ public class ArticleBackVO implements Serializable {
     private String title;
 
     /**
-     * 文章分类名称
+     * 文章分类id
      */
-    private String categoryName;
+    private CategorySimpleVO category;
 
     /**
-     * 文章正文
+     * 文章标签列表
      */
     private List<TagSimpleVO> tagList;
+
+    /**
+     * 文章内容
+     */
+    private String content;
 
     /**
      * 文章浏览量
@@ -37,15 +42,9 @@ public class ArticleBackVO implements Serializable {
     private Integer views;
 
     /**
-     * 文章发布时间
+     * 发布时间
      */
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime createTime;
-
-    /**
-     * 文章更新时间
-     */
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-    private LocalDateTime updateTime;
 
 }

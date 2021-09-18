@@ -2,7 +2,7 @@ package com.ixcoret.blog.mapper;
 
 import com.ixcoret.blog.entity.Tag;
 import com.ixcoret.blog.vo.TagBackVO;
-import com.ixcoret.blog.vo.TagOptionVO;
+import com.ixcoret.blog.vo.TagSimpleVO;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -13,7 +13,7 @@ import java.util.List;
  */
 @Repository
 public interface TagMapper {
-    List<TagOptionVO> listTagOptions();
+    List<TagSimpleVO> listTagOptions();
 
     void saveBatch(List<Tag> tags);
 
@@ -34,4 +34,6 @@ public interface TagMapper {
     List<Tag> listTagsInTagNameList(List<String> tagNameList);
 
     List<String> listTagNameByArticleId(Integer articleId);
+
+    List<TagSimpleVO> getByArticleId(Integer articleId);
 }

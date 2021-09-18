@@ -4,7 +4,7 @@ import com.ixcoret.blog.api.Page;
 import com.ixcoret.blog.dto.CategoryDTO;
 import com.ixcoret.blog.dto.ConditionDTO;
 import com.ixcoret.blog.vo.CategoryBackVO;
-import com.ixcoret.blog.vo.CategoryOptionVO;
+import com.ixcoret.blog.vo.CategorySimpleVO;
 
 import java.util.List;
 
@@ -43,6 +43,6 @@ public interface CategoryService {
      */
     void deleteBatch(List<Integer> ids);
 
-    List<CategoryOptionVO> listCategoryOptions();
+    List<CategorySimpleVO> listCategoryOptions();
 
 }

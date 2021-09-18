@@ -4,7 +4,7 @@ import com.ixcoret.blog.api.Page;
 import com.ixcoret.blog.dto.ConditionDTO;
 import com.ixcoret.blog.dto.TagDTO;
 import com.ixcoret.blog.vo.TagBackVO;
-import com.ixcoret.blog.vo.TagOptionVO;
+import com.ixcoret.blog.vo.TagSimpleVO;
 
 import java.util.List;
 
@@ -13,7 +13,7 @@ import java.util.List;
  * @createTime 2021/7/5 0:11
  */
 public interface TagService {
-    List<TagOptionVO> listTagOptions();
+    List<TagSimpleVO> listTagOptions();
 
     Page<TagBackVO> listBackTags(ConditionDTO conditionDTO);
 

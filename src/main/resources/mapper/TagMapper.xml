@@ -42,7 +42,7 @@
         )
     </delete>
 
-    <select id="listTagOptions" resultType="com.ixcoret.blog.vo.TagOptionVO">
+    <select id="listTagOptions" resultType="com.ixcoret.blog.vo.TagSimpleVO">
         select id, tag_name tagName
         from t_tag;
     </select>
@@ -81,5 +81,10 @@
         where a_t.article_id = #{articleId}
     </select>
 
+    <select id="getByArticleId" resultType="com.ixcoret.blog.vo.TagSimpleVO">
+        select
+            t.id, t.tag_name tagName
+        from t_tag t join t_article_tag a_t on a_t.tag_id = t.id where a_t.article_id = #{articleId}
+    </select>
 
 </mapper>

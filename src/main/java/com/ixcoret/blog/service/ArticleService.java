@@ -1,10 +1,12 @@
 package com.ixcoret.blog.service;
 
-import com.ixcoret.blog.dto.DeleteDTO;
-import com.ixcoret.blog.vo.ArticleBackVO;
+import com.ixcoret.blog.api.Page;
 import com.ixcoret.blog.dto.ArticleDTO;
 import com.ixcoret.blog.dto.ConditionDTO;
-import com.ixcoret.blog.api.Page;
+import com.ixcoret.blog.dto.DeleteDTO;
+import com.ixcoret.blog.vo.ArticleBackVO;
+import com.ixcoret.blog.vo.ArticleDetailVO;
+import com.ixcoret.blog.vo.ArticlePreviewVO;
 
 /**
  * @author ixcoret
@@ -26,4 +28,8 @@ public interface ArticleService {
     void updateArticleDelete(DeleteDTO deleteDTO);
 
     ArticleDTO getBackArticleById(Integer articleId);
+
+    Page<ArticlePreviewVO> listPreviewArticles(ConditionDTO conditionDTO);
+
+    ArticleDetailVO getArticleById(Integer articleId);
 }

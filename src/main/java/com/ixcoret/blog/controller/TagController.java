@@ -7,7 +7,7 @@ import com.ixcoret.blog.dto.TagDTO;
 import com.ixcoret.blog.enums.ResultCodeEnum;
 import com.ixcoret.blog.service.TagService;
 import com.ixcoret.blog.vo.TagBackVO;
-import com.ixcoret.blog.vo.TagOptionVO;
+import com.ixcoret.blog.vo.TagSimpleVO;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -73,8 +73,8 @@ public class TagController {
      */
     @ApiOperation("后台简略标签列表")
     @GetMapping("/admin/tags/options")
-    public Result<List<TagOptionVO>> listTagOptions() {
-        List<TagOptionVO> tagOptions = tagService.listTagOptions();
+    public Result<List<TagSimpleVO>> listTagOptions() {
+        List<TagSimpleVO> tagOptions = tagService.listTagOptions();
         return Result.success(tagOptions);
     }
 }

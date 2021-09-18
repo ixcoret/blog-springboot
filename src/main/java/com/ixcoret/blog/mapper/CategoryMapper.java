@@ -2,7 +2,7 @@ package com.ixcoret.blog.mapper;
 
 import com.ixcoret.blog.entity.Category;
 import com.ixcoret.blog.vo.CategoryBackVO;
-import com.ixcoret.blog.vo.CategoryOptionVO;
+import com.ixcoret.blog.vo.CategorySimpleVO;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -28,7 +28,7 @@ public interface CategoryMapper {
 
     void deleteBatch(List<Integer> ids);
 
-    List<CategoryOptionVO> listCategoryOptions();
+    List<CategorySimpleVO> listCategoryOptions();
 
     Category getById(Integer id);
 }

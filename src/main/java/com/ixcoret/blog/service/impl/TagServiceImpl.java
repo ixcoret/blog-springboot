@@ -10,7 +10,7 @@ import com.ixcoret.blog.mapper.TagMapper;
 import com.ixcoret.blog.service.TagService;
 import com.ixcoret.blog.util.PageUtil;
 import com.ixcoret.blog.vo.TagBackVO;
-import com.ixcoret.blog.vo.TagOptionVO;
+import com.ixcoret.blog.vo.TagSimpleVO;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -28,7 +28,7 @@ public class TagServiceImpl implements TagService {
     private TagMapper tagMapper;
 
     @Override
-    public List<TagOptionVO> listTagOptions() {
+    public List<TagSimpleVO> listTagOptions() {
         return tagMapper.listTagOptions();
     }
 
