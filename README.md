@@ -11,3 +11,20 @@ Spring Boot Mysql
 #### 登录：
 
 ![](README.assets/image-20210902190805.png)
+
+#### 文章列表
+
+![](README.assets/image-20210920220749.png)
+
+#### 文章发布
+
+![](README.assets/image-20210920220837.png)
+
+#### 文章分类
+
+![](README.assets/image-20210920221126.png)
+
+#### 文章标签
+
+![](README.assets/image-20210920221211.png)
+
