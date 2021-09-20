@@ -8,6 +8,7 @@ services:
       - MYSQL_ROOT_PASSWORD=root
   redis:
     image: redis:5.0.12
+    command: redis-server --requirepass 1234
   blog:
     image: blog:latest
     build: .
