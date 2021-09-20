@@ -38,4 +38,4 @@ spring:
     # 数据库
     database: 0
     # 密码
-    password: 123456
+    password: 1234
