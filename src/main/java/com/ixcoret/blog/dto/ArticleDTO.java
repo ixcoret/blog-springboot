@@ -37,7 +37,7 @@ public class ArticleDTO implements Serializable {
     /**
      * 文章正文
      */
-    @Valid
+    @NotBlank(message = "文章内容不能为空！")
     private String content;
 
 }
