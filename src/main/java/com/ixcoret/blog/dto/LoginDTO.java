@@ -9,7 +9,7 @@ import javax.validation.constraints.NotBlank;
  * @createTime 2021/7/3 19:38
  */
 @Data
-public class LoginForm {
+public class LoginDTO {
     /**
      * 用户名
      */
