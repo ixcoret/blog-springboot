@@ -2,18 +2,15 @@ package com.ixcoret.blog.aspect;
 
 import com.alibaba.fastjson.JSON;
 import com.ixcoret.blog.context.SystemContext;
-import com.ixcoret.blog.enums.StateEnum;
 import com.ixcoret.blog.entity.OperationLog;
+import com.ixcoret.blog.enums.StateEnum;
 import com.ixcoret.blog.service.OperationLogService;
 import com.ixcoret.blog.util.IpUtil;
-import com.ixcoret.blog.util.SpringUtil;
+import com.ixcoret.blog.context.HttpContextHolder;
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.ProceedingJoinPoint;
-import org.aspectj.lang.annotation.AfterThrowing;
-import org.aspectj.lang.annotation.Around;
-import org.aspectj.lang.annotation.Aspect;
-import org.aspectj.lang.annotation.Pointcut;
+import org.aspectj.lang.annotation.*;
 import org.aspectj.lang.reflect.MethodSignature;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -39,7 +36,7 @@ public class LogAspect {
     @Around("logPointCut()")
     public Object logAround(ProceedingJoinPoint joinPoint) throws Throwable {
         MethodSignature signature = (MethodSignature) joinPoint.getSignature();
-        HttpServletRequest request = SpringUtil.getHttpServletRequest();
+        HttpServletRequest request = HttpContextHolder.getHttpServletRequest();
 
         String ip = IpUtil.getIpAddr(request);
         String browser = request.getHeader("User-Agent");
@@ -84,7 +81,7 @@ public class LogAspect {
         operationLog.setResult(result);
         log.info("创建人：{}", "admin");
         operationLog.setUsername("admin");
-        operationLogService.save(operationLog);
+        //operationLogService.save(operationLog);
         return proceed;
     }
 
@@ -95,5 +92,15 @@ public class LogAspect {
         operationLog.setException(throwable.getMessage());
         operationLog.setTime(-1L);
         operationLogService.save(operationLog);
+    }
+
+    /**
+     * 后置通知
+     *
+     * @param joinPoint
+     */
+    @After("logPointCut()")
+    public void logAfter(JoinPoint joinPoint) {
+        SystemContext.remove();
     }
 }
