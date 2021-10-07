@@ -8,10 +8,10 @@ import org.springframework.stereotype.Repository;
  * @createTime 2021/6/13 15:39
  */
 @Repository
-public interface SysUserMapper {
+public interface UserMapper {
     /**
      * 根据用户名查询
      * @return
      */
-    SysUser getByUsername(String username);
+    SysUser getUserByUsername(String username);
 }
