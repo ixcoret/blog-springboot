@@ -20,7 +20,7 @@ import java.util.List;
  */
 @Configuration
 @EnableSwagger2
-public class Swagger2Config {
+public class SwaggerConfig {
 
     @Bean
     public Docket createRestApi() {
