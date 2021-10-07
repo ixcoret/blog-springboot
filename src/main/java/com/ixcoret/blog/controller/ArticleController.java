@@ -28,6 +28,7 @@ public class ArticleController {
     @Autowired
     private ArticleService articleService;
 
+    // TODO: 2021/9/28 修复bug：文章关联分类为空时，编辑文章报500错误
     @PostMapping("/admin/articles")
     @ApiOperation("保存文章")
     public Result<?> save(@Valid @RequestBody ArticleDTO articleDTO) {
