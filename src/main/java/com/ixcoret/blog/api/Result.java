@@ -10,9 +10,10 @@ import java.io.Serializable;
  * @author ixcoret
  * @createTime 2021/5/29 14:54
  */
-@Data
+
 // 只序列化非null的属性
 @JsonInclude(JsonInclude.Include.NON_NULL)
+@Data
 public class Result<T> implements Serializable {
     private Integer code;
 
