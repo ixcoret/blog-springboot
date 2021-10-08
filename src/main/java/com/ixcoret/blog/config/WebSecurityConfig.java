@@ -15,6 +15,7 @@ import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.security.web.authentication.logout.LogoutSuccessHandler;
 import org.springframework.security.web.session.HttpSessionEventPublisher;
 
 /**
@@ -33,6 +34,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
     private AuthenticationFailureHandler authenticationFailHandler;
+
+    @Autowired
+    private LogoutSuccessHandler logoutSuccessHandler;
+
 
     /**
      * 密码加密
@@ -64,7 +69,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     JsonUsernamePasswordAuthenticationFilter jsonUsernamePasswordAuthenticationFilter() throws Exception {
         JsonUsernamePasswordAuthenticationFilter filter = new JsonUsernamePasswordAuthenticationFilter();
         filter.setAuthenticationManager(authenticationManagerBean());
+        // 设置认证成功处理器
         filter.setAuthenticationSuccessHandler(authenticationSuccessHandler);
+        // 设置认证失败处理器
         filter.setAuthenticationFailureHandler(authenticationFailHandler);
         return filter;
     }
@@ -95,29 +102,18 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
 
-        // 配置登录注销路径
-        /*http.formLogin()
-                //登录请求地址
-                .loginProcessingUrl("/login")
-                .and()
-                .logout()
-                .logoutUrl("/logout").permitAll();*/
-
         // 配置访问控制规则
         http.authorizeRequests()
                 // 允许任何人、任何状态访问的权限
 
                 // 其他请求都要登录认证才能访问
-                .anyRequest().authenticated()
-                .and().formLogin()
-                //登录请求地址
-                .loginProcessingUrl("/login")
-                .and()
-                .logout()
-                .logoutUrl("/logout").permitAll();
+                .anyRequest().authenticated();
 
-        // 关闭跨站请求防护
-        http.csrf().disable();
+        // 将Json登录过滤器放到UsernamePasswordAuthenticationFilter的位置
+        http.addFilterAt(jsonUsernamePasswordAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);
+
+        // 配置注销登录成功处理器
+        http.logout().logoutSuccessHandler(logoutSuccessHandler);
 
         // 配置异常处理
         http.exceptionHandling()
@@ -130,6 +126,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .maximumSessions(1)
                 .sessionRegistry(sessionRegistry());
 
-        http.addFilterAt(jsonUsernamePasswordAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);
+        // 关闭跨站请求防护
+        http.csrf().disable();
     }
 }
