@@ -32,9 +32,8 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         }
         SysUser sysUser = userService.getUserByUsername(username);
         if (sysUser == null) {
-            throw new UsernameNotFoundException("用户不存在！");
+            throw new UsernameNotFoundException(ResultCodeEnum.USERNAME_OR_PASSWORD_ERROR.getMessage());
         }
-
         List<GrantedAuthority> authorities = new ArrayList<>();
         return new org.springframework.security.core.userdetails.User(username, sysUser.getPassword(), authorities);
     }
