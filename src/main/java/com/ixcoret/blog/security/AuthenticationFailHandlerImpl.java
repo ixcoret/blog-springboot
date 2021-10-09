@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 /**
- * 登录失败处理
+ * 认证失败处理器：如用户名或密码不正确
  *
  * @author ixcoret
  * @createTime 2021/10/5 15:18

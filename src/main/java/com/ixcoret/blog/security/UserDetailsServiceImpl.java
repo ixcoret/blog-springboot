@@ -16,6 +16,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
+ * 加载用户信息
+ *
  * @author ixcoret
  * @createTime 2021/10/6 18:16
  */
@@ -32,6 +34,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         }
         SysUser sysUser = userService.getUserByUsername(username);
         if (sysUser == null) {
+            // 出于安全性考虑，UsernameNotFoundException异常默认会被隐藏，使用BadCredentialsException异常代替
             throw new UsernameNotFoundException(ResultCodeEnum.USERNAME_OR_PASSWORD_ERROR.getMessage());
         }
         List<GrantedAuthority> authorities = new ArrayList<>();

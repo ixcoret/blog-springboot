@@ -15,7 +15,8 @@ import java.io.IOException;
 import java.util.Map;
 
 /**
- * 自定义登录过滤器，处理Json格式的用户名密码
+ * 自定义的登录过滤器，处理Json格式的用户名密码
+ *     也可以不在过滤器中处理：在controller中写登录接口，并在SpringSecurity配置中放行该接口
  *
  * @author ixcoret
  * @createTime 2021/10/7 19:37

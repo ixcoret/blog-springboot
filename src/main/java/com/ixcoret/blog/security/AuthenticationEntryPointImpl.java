@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 /**
- * 当未登录或登录过期访问接口时，自定义返回结果
+ * 认证异常处理器：处理AuthenticationException异常，注意：这里不是处理认证失败的，而是定义未登录或登录过期的处理逻辑
  *
  * @author ixcoret
  * @createTime 2021/10/4 14:24

@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 /**
- * 登录成功处理
+ * 认证成功处理器：给用户一个提示或返回认证信息（用户信息）
  *
  * @author ixcoret
  * @createTime 2021/10/5 16:36

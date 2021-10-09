@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 /**
- * 注销登录成功处理
+ * 注销登录成功处理器
  *
  * @author ixcoret
  * @createTime 2021/10/5 17:20
@@ -22,6 +22,6 @@ public class LogoutSuccessHandlerImpl implements LogoutSuccessHandler {
     @Override
     public void onLogoutSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException, ServletException {
         response.setContentType("application/json;charset=UTF-8");
-        response.getWriter().write(JSON.toJSONString(Result.success("退出登录成功")));
+        response.getWriter().write(JSON.toJSONString(Result.success("已注销登录！")));
     }
 }
