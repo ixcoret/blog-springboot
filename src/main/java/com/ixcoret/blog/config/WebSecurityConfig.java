@@ -38,6 +38,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     private LogoutSuccessHandler logoutSuccessHandler;
 
+    @Autowired
+    private SessionRegistry sessionRegistry;
+
 
     /**
      * 密码加密
@@ -104,8 +107,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
         // 配置访问控制规则
         http.authorizeRequests()
-                // 允许任何人、任何状态访问的权限
-
+                // 允许任何人、任何状态访问的请求
+                //.antMatchers("/login").permitAll()
                 // 其他请求都要登录认证才能访问
                 .anyRequest().authenticated();
 
@@ -123,8 +126,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         // 开启会话管理
         http.sessionManagement()
                 // 设置会话并发数
-                .maximumSessions(1)
-                .sessionRegistry(sessionRegistry());
+                .maximumSessions(20)
+                .sessionRegistry(sessionRegistry);
 
         // 关闭跨站请求防护
         http.csrf().disable();
