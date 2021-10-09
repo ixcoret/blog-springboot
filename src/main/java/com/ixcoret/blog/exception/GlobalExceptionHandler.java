@@ -5,6 +5,8 @@ import com.ixcoret.blog.enums.ResultCodeEnum;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.http.converter.HttpMessageNotReadableException;
+import org.springframework.security.authentication.BadCredentialsException;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.HttpMediaTypeNotSupportedException;
 import org.springframework.web.HttpRequestMethodNotSupportedException;
@@ -46,7 +48,7 @@ public class GlobalExceptionHandler {
     }
 
     /**
-     * json参数解析失败：缺少json格式请求体参数或json格式不正确
+     * json参数解析失败：缺少json格式的请求体参数或json格式不正确
      *
      * @param e
      * @return
@@ -116,6 +118,32 @@ public class GlobalExceptionHandler {
     public Result handleDuplicateKeyException(DuplicateKeyException e) {
         log.info(e.getMessage());
         return Result.error(ResultCodeEnum.DATA_DUPLICATE);
+    }
+
+    /**
+     * 处理用户不存在
+     * 当前项目的认证逻辑是在过滤器中处理的，请求是到不了MVC模块的，因此这里的异常处理是无效的
+     *
+     * @param e
+     * @return
+     */
+    @ExceptionHandler(UsernameNotFoundException.class)
+    public Result handleDuplicateKeyException(UsernameNotFoundException e) {
+        log.info(e.getMessage());
+        return Result.error(ResultCodeEnum.USERNAME_OR_PASSWORD_ERROR);
+    }
+
+    /**
+     * 处理登录凭证（一般是密码）无效
+     * 当前项目的认证逻辑是在过滤器中处理的，请求是到不了MVC模块的，因此这里的异常处理是无效的
+     *
+     * @param e
+     * @return
+     */
+    @ExceptionHandler(BadCredentialsException.class)
+    public Result handleDuplicateKeyException(BadCredentialsException e) {
+        log.info(e.getMessage());
+        return Result.error(ResultCodeEnum.USERNAME_OR_PASSWORD_ERROR);
     }
 
     /*
