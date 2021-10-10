@@ -2,7 +2,7 @@
 
 ## 技术点
 
-Spring Boot Mysql
+SpringBoot SpringSecurity Mysql
 
 ## 项目运行截图
 

@@ -38,10 +38,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     private LogoutSuccessHandler logoutSuccessHandler;
 
-    @Autowired
-    private SessionRegistry sessionRegistry;
-
-
     /**
      * 密码加密
      *
@@ -127,7 +123,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         http.sessionManagement()
                 // 设置会话并发数
                 .maximumSessions(20)
-                .sessionRegistry(sessionRegistry);
+                .sessionRegistry(sessionRegistry());
 
         // 关闭跨站请求防护
         http.csrf().disable();

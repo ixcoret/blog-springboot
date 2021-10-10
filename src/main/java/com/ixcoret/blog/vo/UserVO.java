@@ -1,17 +1,17 @@
-package com.ixcoret.blog.entity;
+package com.ixcoret.blog.vo;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
 /**
- * 后台用户
  * @author ixcoret
- * @createTime 2021/6/13 15:07
+ * @createTime 2021/10/10 15:30
  */
 @Data
-public class SysUser implements Serializable {
+public class UserVO implements Serializable {
     /**
      * 用户id
      */
@@ -21,11 +21,6 @@ public class SysUser implements Serializable {
      * 用户名
      */
     private String username;
-
-    /**
-     * 密码
-     */
-    private String password;
 
     /**
      * 头像地址
@@ -45,10 +40,12 @@ public class SysUser implements Serializable {
     /**
      * 创建时间
      */
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime createTime;
 
     /**
      * 更新时间
      */
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime updateTime;
 }
