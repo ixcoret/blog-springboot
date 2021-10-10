@@ -55,7 +55,7 @@ public class LogAspect {
         log.info("请求参数：{}", params);
 
         long start = System.currentTimeMillis();
-        OperationLog operationLog = SystemContext.getLog();
+        OperationLog operationLog = SystemContext.getOperationLog();
         operationLog.setIp(ip);
         operationLog.setBrowser(browser);
         operationLog.setUrl(uri);
@@ -87,7 +87,7 @@ public class LogAspect {
 
     @AfterThrowing(pointcut = "logPointCut()", throwing = "throwable")
     public void logAfterThrowing(JoinPoint joinPoint, Throwable throwable) {
-        OperationLog operationLog = SystemContext.getLog();
+        OperationLog operationLog = SystemContext.getOperationLog();
         operationLog.setStatus(StateEnum.REQUEST_ERROR.getCode());
         operationLog.setException(throwable.getMessage());
         operationLog.setTime(-1L);
