@@ -55,6 +55,8 @@ public class ArticleServiceImpl implements ArticleService {
         Article article = new Article();
         if (category != null) {
             article.setCategoryId(category.getId());
+        } else {
+            article.setCategoryId(null);
         }
         article.setTitle(articleDTO.getTitle());
         article.setContent(articleDTO.getContent());
@@ -73,9 +75,6 @@ public class ArticleServiceImpl implements ArticleService {
     }
 
     private Category saveArticleCategory(ArticleDTO articleDTO) {
-        if (articleDTO.getId() != null) {
-            articleTagMapper.deleteBatch(articleDTO.getId());
-        }
         String categoryName = articleDTO.getCategoryName();
         if (categoryName == null || categoryName.trim().equals("")) {
             return null;
@@ -92,6 +91,9 @@ public class ArticleServiceImpl implements ArticleService {
     }
 
     private void saveArticleTag(ArticleDTO articleDTO, Integer articleId) {
+        if (articleDTO.getId() != null) {
+            articleTagMapper.deleteBatch(articleDTO.getId());
+        }
         List<String> tagNameList = articleDTO.getTagNameList();
         if (!CollectionUtils.isEmpty(tagNameList)) {
             List<Tag> existTagList = tagMapper.listTagsInTagNameList(tagNameList);
@@ -151,9 +153,13 @@ public class ArticleServiceImpl implements ArticleService {
         Category category = categoryMapper.getById(article.getCategoryId());
         List<String> tagNameList = tagMapper.listTagNameByArticleId(articleId);
         ArticleDTO articleDTO = new ArticleDTO();
+        if (category != null) {
+            articleDTO.setCategoryName(category.getCategoryName());
+        } else {
+            articleDTO.setCategoryName(null);
+        }
         articleDTO.setId(article.getId());
         articleDTO.setTitle(article.getTitle());
-        articleDTO.setCategoryName(category.getCategoryName());
         articleDTO.setTagNameList(tagNameList);
         articleDTO.setContent(article.getContent());
         return articleDTO;

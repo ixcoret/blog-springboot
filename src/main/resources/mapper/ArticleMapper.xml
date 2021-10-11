@@ -55,9 +55,7 @@
             <if test="title != null and title != ''">
                 title = #{title},
             </if>
-            <if test="categoryId != null">
-                category_id = #{categoryId},
-            </if>
+            category_id = #{categoryId},
             <if test="content != null and content != ''">
                 content = #{content},
             </if>
