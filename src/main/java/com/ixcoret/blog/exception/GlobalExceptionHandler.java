@@ -19,6 +19,8 @@ import org.springframework.web.method.annotation.MethodArgumentTypeMismatchExcep
 import java.util.Objects;
 
 /**
+ * 全局异常处理
+ *
  * @author ixcoret
  * @createTime 2021/5/29 17:31
  */

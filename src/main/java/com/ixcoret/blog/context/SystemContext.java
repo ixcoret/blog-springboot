@@ -6,7 +6,6 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.User;
 
 /**
- * 解决多线程之间数据隔离问题
  * @author ixcoret
  * @createTime 2021/6/9 14:04
  */

@@ -15,6 +15,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
+ * Swagger接口管理工具配置类
+ *
  * @author ixcoret
  * @createTime 2021/5/31 15:07
  */

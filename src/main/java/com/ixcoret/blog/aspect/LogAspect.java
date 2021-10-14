@@ -18,6 +18,8 @@ import org.springframework.stereotype.Component;
 import javax.servlet.http.HttpServletRequest;
 
 /**
+ * 日志切面类
+ *
  * @author ixcoret
  * @createTime 2021/6/7 12:45
  */

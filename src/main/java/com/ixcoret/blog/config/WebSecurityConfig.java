@@ -1,6 +1,6 @@
 package com.ixcoret.blog.config;
 
-import com.ixcoret.blog.security.JsonUsernamePasswordAuthenticationFilter;
+import com.ixcoret.blog.security.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -11,11 +11,7 @@ import org.springframework.security.core.session.SessionRegistry;
 import org.springframework.security.core.session.SessionRegistryImpl;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.web.AuthenticationEntryPoint;
-import org.springframework.security.web.authentication.AuthenticationFailureHandler;
-import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
-import org.springframework.security.web.authentication.logout.LogoutSuccessHandler;
 import org.springframework.security.web.session.HttpSessionEventPublisher;
 
 /**
@@ -27,16 +23,16 @@ import org.springframework.security.web.session.HttpSessionEventPublisher;
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
-    private AuthenticationEntryPoint authenticationEntryPoint;
+    private AuthenticationEntryPointImpl authenticationEntryPoint;
 
     @Autowired
-    private AuthenticationSuccessHandler authenticationSuccessHandler;
+    private AuthenticationSuccessHandlerImpl authenticationSuccessHandler;
 
     @Autowired
-    private AuthenticationFailureHandler authenticationFailHandler;
+    private AuthenticationFailHandlerImpl authenticationFailHandler;
 
     @Autowired
-    private LogoutSuccessHandler logoutSuccessHandler;
+    private LogoutSuccessHandlerImpl logoutSuccessHandler;
 
     /**
      * 密码加密
@@ -108,6 +104,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 // 其他请求都要登录认证才能访问
                 .anyRequest().authenticated();
 
+        // 配置自定义过滤器
         // 将Json登录过滤器放到UsernamePasswordAuthenticationFilter的位置
         http.addFilterAt(jsonUsernamePasswordAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);
 

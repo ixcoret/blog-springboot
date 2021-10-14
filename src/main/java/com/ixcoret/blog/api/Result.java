@@ -7,6 +7,8 @@ import lombok.Data;
 import java.io.Serializable;
 
 /**
+ * 统一返回结果类
+ *
  * @author ixcoret
  * @createTime 2021/5/29 14:54
  */
