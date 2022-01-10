@@ -70,7 +70,6 @@ public class ArticleServiceImpl implements ArticleService {
             article.setId(articleDTO.getId());
             articleMapper.update(article);
         }
-
         saveArticleTag(articleDTO, article.getId());
     }
 
@@ -188,9 +187,13 @@ public class ArticleServiceImpl implements ArticleService {
         ArticleDetailVO articleDetailVO = new ArticleDetailVO();
         BeanUtils.copyProperties(article, articleDetailVO);
         Category category = categoryMapper.getById(article.getCategoryId());
-        CategorySimpleVO categorySimpleVO = new CategorySimpleVO();
-        BeanUtils.copyProperties(category, categorySimpleVO);
-        articleDetailVO.setCategory(categorySimpleVO);
+        if (category != null) {
+            CategorySimpleVO categorySimpleVO = new CategorySimpleVO();
+            BeanUtils.copyProperties(category, categorySimpleVO);
+            articleDetailVO.setCategory(categorySimpleVO);
+        } else {
+            articleDetailVO.setCategory(null);
+        }
         List<TagSimpleVO> tagList = tagMapper.getByArticleId(articleId);
         articleDetailVO.setTagList(tagList);
         return articleDetailVO;

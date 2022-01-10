@@ -26,13 +26,13 @@ public class LoginController {
     @ApiOperation("登录测试")
     @PostMapping("/login")
     public Result<?> login(@Valid @RequestBody LoginDTO loginDTO) {
-        return Result.error(ResultCodeEnum.NOT_LOGIN.getCode(), "尚未登录，请先登录！");
+        return Result.error(ResultCodeEnum.NEED_LOGIN.getCode(), "尚未登录，请先登录！");
     }
 
     @ApiOperation("注销登录测试")
     @GetMapping("/logout")
     public Result<?> logout() {
-        return Result.error(ResultCodeEnum.NOT_LOGIN.getCode(), "尚未登录，请先登录！");
+        return Result.error(ResultCodeEnum.NEED_LOGIN.getCode(), "尚未登录，请先登录！");
     }
 
 }

@@ -100,7 +100,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         // 配置访问控制规则
         http.authorizeRequests()
                 // 允许任何人、任何状态访问的请求
-                //.antMatchers("/login").permitAll()
+                .antMatchers("/articles/**").permitAll()
                 // 其他请求都要登录认证才能访问
                 .anyRequest().authenticated();
 

@@ -23,6 +23,6 @@ public class AuthenticationEntryPointImpl implements AuthenticationEntryPoint {
     @Override
     public void commence(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, AuthenticationException e) throws IOException, ServletException {
         httpServletResponse.setContentType("application/json;charset=utf-8");
-        httpServletResponse.getWriter().write(JSON.toJSONString(Result.error(ResultCodeEnum.NOT_LOGIN)));
+        httpServletResponse.getWriter().write(JSON.toJSONString(Result.error(ResultCodeEnum.NEED_LOGIN)));
     }
 }

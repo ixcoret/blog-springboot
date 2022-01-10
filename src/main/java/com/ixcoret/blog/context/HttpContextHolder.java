@@ -12,7 +12,9 @@ import java.util.Objects;
  */
 public class HttpContextHolder {
 
-    // 返回当前请求上下文的HttpServletRequest对象
+    /**
+     * 返回当前请求上下文的HttpServletRequest对象
+     */
     public static HttpServletRequest getHttpServletRequest() {
         return ((ServletRequestAttributes) Objects.requireNonNull(RequestContextHolder.getRequestAttributes())).getRequest();
     }

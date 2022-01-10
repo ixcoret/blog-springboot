@@ -1,16 +1,16 @@
 package com.ixcoret.blog.aspect;
 
 import com.alibaba.fastjson.JSON;
-import com.ixcoret.blog.context.SystemContext;
+import com.ixcoret.blog.context.HttpContextHolder;
 import com.ixcoret.blog.entity.OperationLog;
 import com.ixcoret.blog.enums.StateEnum;
 import com.ixcoret.blog.service.OperationLogService;
 import com.ixcoret.blog.util.IpUtil;
-import com.ixcoret.blog.context.HttpContextHolder;
 import lombok.extern.slf4j.Slf4j;
-import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.ProceedingJoinPoint;
-import org.aspectj.lang.annotation.*;
+import org.aspectj.lang.annotation.Around;
+import org.aspectj.lang.annotation.Aspect;
+import org.aspectj.lang.annotation.Pointcut;
 import org.aspectj.lang.reflect.MethodSignature;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -34,10 +34,9 @@ public class LogAspect {
     @Pointcut("execution(* com.ixcoret.blog.controller.*.*(..)) && @annotation(com.ixcoret.blog.annotation.Log)")
     public void logPointCut(){}
 
-    // 配置切入点表达式
     @Around("logPointCut()")
-    public Object logAround(ProceedingJoinPoint joinPoint) throws Throwable {
-        MethodSignature signature = (MethodSignature) joinPoint.getSignature();
+    public Object logAround(ProceedingJoinPoint proceedingJoinPoint) throws Throwable {
+        MethodSignature signature = (MethodSignature) proceedingJoinPoint.getSignature();
         HttpServletRequest request = HttpContextHolder.getHttpServletRequest();
 
         String ip = IpUtil.getIpAddr(request);
@@ -46,7 +45,7 @@ public class LogAspect {
         String controller = signature.getDeclaringTypeName();
         String methodName = signature.getName();
         String requestMethod = request.getMethod();
-        Object[] params = joinPoint.getArgs();
+        Object[] params = proceedingJoinPoint.getArgs();
         log.info("ip地址为：{}", ip);
         log.info("浏览器信息：{}", browser);
         log.info("请求的url：{}", uri);
@@ -57,52 +56,40 @@ public class LogAspect {
         log.info("请求参数：{}", params);
 
         long start = System.currentTimeMillis();
-        OperationLog operationLog = SystemContext.getOperationLog();
+        OperationLog operationLog = new OperationLog();
         operationLog.setIp(ip);
         operationLog.setBrowser(browser);
         operationLog.setUrl(uri);
         operationLog.setController(controller);
         operationLog.setMethod(methodName);
         operationLog.setRequestMethod(requestMethod);
-        //sysLog.setParams(params);
 
-        //------------以上为前置通知----------
+        Object obj;
+        try {
+            obj = proceedingJoinPoint.proceed();
+            long end = System.currentTimeMillis();
+            long time = end - start;
+            log.info("请求耗时：{}毫秒", time);
+            operationLog.setTime(time);
+            Integer code = StateEnum.REQUEST_SUCCESS.getCode();
+            log.info("请求状态：{}", code);
+            operationLog.setStatus(code);
+            String result = JSON.toJSONString(obj);
+            log.info("返回结果：{}", result);
+            operationLog.setResult(result);
+        } catch (Exception e) {
+            operationLog.setStatus(StateEnum.REQUEST_ERROR.getCode());
+            operationLog.setException(e.getMessage());
+            operationLog.setTime(-1L);
+            // 再将异常抛出，防止事务失效
+            throw e;
+        } finally {
+            log.info("创建人：{}", "admin");
+            operationLog.setUsername("admin");
+            // TODO: 异步记录日志
+            operationLogService.save(operationLog);
+        }
 
-        // 开始执行controller service mapper的代码
-        Object proceed = joinPoint.proceed();
-        long end = System.currentTimeMillis();
-        long time = end - start;
-        log.info("请求耗时：{}毫秒", time);
-        operationLog.setTime(time);
-        // 后置通知开始
-        Integer code = StateEnum.REQUEST_SUCCESS.getCode();
-        log.info("请求状态：{}", code);
-        operationLog.setStatus(code);
-        String result = JSON.toJSONString(proceed);
-        log.info("返回结果：{}", result);
-        operationLog.setResult(result);
-        log.info("创建人：{}", "admin");
-        operationLog.setUsername("admin");
-        //operationLogService.save(operationLog);
-        return proceed;
-    }
-
-    @AfterThrowing(pointcut = "logPointCut()", throwing = "throwable")
-    public void logAfterThrowing(JoinPoint joinPoint, Throwable throwable) {
-        OperationLog operationLog = SystemContext.getOperationLog();
-        operationLog.setStatus(StateEnum.REQUEST_ERROR.getCode());
-        operationLog.setException(throwable.getMessage());
-        operationLog.setTime(-1L);
-        operationLogService.save(operationLog);
-    }
-
-    /**
-     * 后置通知
-     *
-     * @param joinPoint
-     */
-    @After("logPointCut()")
-    public void logAfter(JoinPoint joinPoint) {
-        SystemContext.remove();
+        return obj;
     }
 }

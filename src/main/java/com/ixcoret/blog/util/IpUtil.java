@@ -12,6 +12,11 @@ import java.net.UnknownHostException;
  */
 @Slf4j
 public class IpUtil {
+    /**
+     * 获取ip地址
+     * @param request
+     * @return
+     */
     public static String getIpAddr(HttpServletRequest request) {
         if (request == null) {
             return "unknown";

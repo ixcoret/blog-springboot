@@ -1,5 +1,4 @@
 # 公共配置
-
 server:
   servlet:
     context-path: /
