@@ -1,7 +1,7 @@
 package com.ixcoret.blog.aspect;
 
 import com.alibaba.fastjson.JSON;
-import com.ixcoret.blog.context.HttpContextHolder;
+import com.ixcoret.blog.context.HttpRequestHolder;
 import com.ixcoret.blog.entity.OperationLog;
 import com.ixcoret.blog.enums.StateEnum;
 import com.ixcoret.blog.service.OperationLogService;
@@ -37,7 +37,7 @@ public class LogAspect {
     @Around("logPointCut()")
     public Object logAround(ProceedingJoinPoint proceedingJoinPoint) throws Throwable {
         MethodSignature signature = (MethodSignature) proceedingJoinPoint.getSignature();
-        HttpServletRequest request = HttpContextHolder.getHttpServletRequest();
+        HttpServletRequest request = HttpRequestHolder.getHttpServletRequest();
 
         String ip = IpUtil.getIpAddr(request);
         String browser = request.getHeader("User-Agent");

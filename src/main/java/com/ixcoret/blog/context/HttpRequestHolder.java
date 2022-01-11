@@ -10,7 +10,7 @@ import java.util.Objects;
  * @author ixcoret
  * @createTime 2021/9/22 17:50
  */
-public class HttpContextHolder {
+public class HttpRequestHolder {
 
     /**
      * 返回当前请求上下文的HttpServletRequest对象

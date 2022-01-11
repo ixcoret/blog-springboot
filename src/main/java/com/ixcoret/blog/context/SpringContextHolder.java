@@ -6,7 +6,7 @@ import org.springframework.context.ApplicationContextAware;
 
 /**
  * 获取Spring容器对象
- *      需不需要加注解表示放入容器中有待测试
+ *      需不需要加@Component注解有待测试
  * @author ixcoret
  * @createTime 2021/6/8 21:56
  */
