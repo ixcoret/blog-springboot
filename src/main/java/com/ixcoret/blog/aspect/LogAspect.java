@@ -35,8 +35,8 @@ public class LogAspect {
     public void logPointCut(){}
 
     @Around("logPointCut()")
-    public Object logAround(ProceedingJoinPoint proceedingJoinPoint) throws Throwable {
-        MethodSignature signature = (MethodSignature) proceedingJoinPoint.getSignature();
+    public Object logAround(ProceedingJoinPoint pjp) throws Throwable {
+        MethodSignature signature = (MethodSignature) pjp.getSignature();
         HttpServletRequest request = HttpRequestHolder.getHttpServletRequest();
 
         String ip = IpUtil.getIpAddr(request);
@@ -45,7 +45,7 @@ public class LogAspect {
         String controller = signature.getDeclaringTypeName();
         String methodName = signature.getName();
         String requestMethod = request.getMethod();
-        Object[] params = proceedingJoinPoint.getArgs();
+        Object[] params = pjp.getArgs();
         log.info("ip地址为：{}", ip);
         log.info("浏览器信息：{}", browser);
         log.info("请求的url：{}", uri);
@@ -64,9 +64,9 @@ public class LogAspect {
         operationLog.setMethod(methodName);
         operationLog.setRequestMethod(requestMethod);
 
-        Object obj;
+        Object retVal;
         try {
-            obj = proceedingJoinPoint.proceed();
+            retVal = pjp.proceed();
             long end = System.currentTimeMillis();
             long time = end - start;
             log.info("请求耗时：{}毫秒", time);
@@ -74,7 +74,7 @@ public class LogAspect {
             Integer code = StateEnum.REQUEST_SUCCESS.getCode();
             log.info("请求状态：{}", code);
             operationLog.setStatus(code);
-            String result = JSON.toJSONString(obj);
+            String result = JSON.toJSONString(retVal);
             log.info("返回结果：{}", result);
             operationLog.setResult(result);
         } catch (Exception e) {
@@ -90,6 +90,6 @@ public class LogAspect {
             operationLogService.save(operationLog);
         }
 
-        return obj;
+        return retVal;
     }
 }
