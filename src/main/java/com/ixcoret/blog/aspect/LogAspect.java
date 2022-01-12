@@ -81,7 +81,7 @@ public class LogAspect {
             operationLog.setStatus(StateEnum.REQUEST_ERROR.getCode());
             operationLog.setException(e.getMessage());
             operationLog.setTime(-1L);
-            // 再将异常抛出，防止事务失效
+            // 再将异常抛出，避免事务失效
             throw e;
         } finally {
             log.info("创建人：{}", "admin");

@@ -1,6 +1,5 @@
 package com.ixcoret.blog.controller;
 
-import com.ixcoret.blog.annotation.Log;
 import com.ixcoret.blog.api.Page;
 import com.ixcoret.blog.api.Result;
 import com.ixcoret.blog.dto.ArticleDTO;
@@ -29,7 +28,6 @@ public class ArticleController {
     @Autowired
     private ArticleService articleService;
 
-    @Log
     @PostMapping("/admin/articles")
     @ApiOperation("保存文章")
     public Result<?> save(@Valid @RequestBody ArticleDTO articleDTO) {

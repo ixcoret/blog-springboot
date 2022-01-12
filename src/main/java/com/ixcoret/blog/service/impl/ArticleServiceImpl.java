@@ -47,7 +47,7 @@ public class ArticleServiceImpl implements ArticleService {
     private CategoryMapper categoryMapper;
 
     @Override
-    @Transactional
+    @Transactional(rollbackFor = Exception.class)
     public void save(ArticleDTO articleDTO) {
 
         Category category = saveArticleCategory(articleDTO);
@@ -75,7 +75,7 @@ public class ArticleServiceImpl implements ArticleService {
 
     private Category saveArticleCategory(ArticleDTO articleDTO) {
         String categoryName = articleDTO.getCategoryName();
-        if (categoryName == null || categoryName.trim().equals("")) {
+        if (categoryName == null || "".equals(categoryName.trim())) {
             return null;
         }
         Category category = categoryMapper.getByName(categoryName);
